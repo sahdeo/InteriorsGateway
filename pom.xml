@@ -29,6 +29,8 @@
         <module>designer-service</module>
         <module>customer-service</module>
         <module>user-service</module>
+        <module>authentication-service</module>
+        <module>payment-service</module>
     </modules>
 
     <dependencies>
