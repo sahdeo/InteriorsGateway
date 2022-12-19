@@ -1,7 +1,7 @@
 package com.stackroute.authenticationservice.service;
 
 import com.stackroute.authenticationservice.dao.RoleDao;
-import com.stackroute.authenticationservice.entity.Role;
+import com.stackroute.authenticationservice.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

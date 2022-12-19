@@ -2,9 +2,10 @@ package com.stackroute.authenticationservice.service;
 
 import com.stackroute.authenticationservice.dao.RoleDao;
 import com.stackroute.authenticationservice.dao.UserDao;
-import com.stackroute.authenticationservice.entity.Role;
-import com.stackroute.authenticationservice.entity.User;
+import com.stackroute.authenticationservice.model.Role;
+import com.stackroute.authenticationservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -20,8 +21,8 @@ public class UserService {
     @Autowired
     private RoleDao roleDao;
 
-   /* @Autowired
-    private PasswordEncod passwordEncoder;*/
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void initRoleAndUser() {
 
@@ -37,7 +38,7 @@ public class UserService {
 
         User adminUser = new User();
         adminUser.setUserName("admin123");
-        adminUser.setUserPassword("admin@pass");
+        adminUser.setUserPassword(getEncodedPassword("admin@pass"));
         adminUser.setUserFirstName("admin");
         adminUser.setUserLastName("admin");
         Set<Role> adminRoles = new HashSet<>();
@@ -45,15 +46,15 @@ public class UserService {
         adminUser.setRole(adminRoles);
         userDao.save(adminUser);
 
-//        User user = new User();
-//        user.setUserName("raj123");
-//        user.setUserPassword(getEncodedPassword("raj@123"));
-//        user.setUserFirstName("raj");
-//        user.setUserLastName("sharma");
-//        Set<Role> userRoles = new HashSet<>();
-//        userRoles.add(userRole);
-//        user.setRole(userRoles);
-//        userDao.save(user);
+        User user = new User();
+        user.setUserName("miraz123");
+        user.setUserPassword(getEncodedPassword("miraz@123"));
+        user.setUserFirstName("miraz");
+        user.setUserLastName("haque");
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(userRole);
+        user.setRole(userRoles);
+        userDao.save(user);
     }
 
     public User registerNewUser(User user) {
@@ -61,12 +62,12 @@ public class UserService {
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(role);
         user.setRole(userRoles);
-        user.setUserPassword(user.getUserPassword());
+        user.setUserPassword(getEncodedPassword(user.getUserPassword()));
 
         return userDao.save(user);
     }
 
-   /* public String getEncodedPassword(String password) {
+    public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);
-    }*/
+    }
 }

@@ -1,4 +1,4 @@
-package com.stackroute.authenticationservice.entity;
+package com.stackroute.authenticationservice.model;
 
 import javax.persistence.*;
 import java.util.Set;

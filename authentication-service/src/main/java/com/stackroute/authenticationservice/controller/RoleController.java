@@ -1,6 +1,6 @@
 package com.stackroute.authenticationservice.controller;
 
-import com.stackroute.authenticationservice.entity.Role;
+import com.stackroute.authenticationservice.model.Role;
 import com.stackroute.authenticationservice.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
