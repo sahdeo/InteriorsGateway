@@ -31,10 +31,19 @@ public class UserController {
     public String forAdmin(){
         return "This URL is only accessible to the admin";
     }
-
     @GetMapping("/forUser")
     @PreAuthorize("hasRole('User')")
     public String forUser(){
         return "This URL is only accessible to the user";
+    }
+    @GetMapping("/forCustomer")
+    @PreAuthorize("hasRole('User')")
+    public String forCustomer(){
+        return "This URL is only accessible to the customer";
+    }
+    @GetMapping("/forDesigner")
+    @PreAuthorize("hasRole('User')")
+    public String forDesigner(){
+        return "This URL is only accessible to the designer";
     }
 }
