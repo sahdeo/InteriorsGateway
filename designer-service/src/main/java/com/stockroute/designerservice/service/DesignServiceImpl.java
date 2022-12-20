@@ -56,4 +56,10 @@ public class DesignServiceImpl implements DesignService {
         }
         return designRepository.save(design);
     }
+
+    @Override
+    public List<Design> findDesignByDesignId(String designId) {
+        return designRepository.findByDesignId(designId);
+    }
+
 }

@@ -8,6 +8,7 @@ import java.util.List;
 @Repository
 public interface DesignerRepository extends MongoRepository<DesignerEntity, String> {
     List<DesignerEntity> findByDesignerId(String designerId);
+    List<DesignerEntity> findByEmailId(String emailId);
 
     List<DesignerEntity> deleteDesignerByDesignerId(String designerId);
 

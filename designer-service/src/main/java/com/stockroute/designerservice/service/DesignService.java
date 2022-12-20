@@ -16,4 +16,6 @@ public interface DesignService {
     List<Design> getAllDesign(int design) throws DesignNotFoundException;
 
     Design updateDesign(Design design, String designId);
+
+    List<Design> findDesignByDesignId(String designId);
 }

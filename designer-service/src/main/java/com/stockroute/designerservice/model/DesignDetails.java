@@ -14,6 +14,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class DesignDetails {
     private  String designModel;
     private int designCode;
-    private String designtModel;
     private int designPrice;
 }

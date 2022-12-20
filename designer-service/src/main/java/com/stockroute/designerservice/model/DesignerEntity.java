@@ -16,7 +16,7 @@ public class DesignerEntity {
     private String designerId;
     private String firstName;
     private String lastName;
-    private String EmailId;
+    private String emailId;
     private String startDate;
     private String endDate;
     private boolean Status;

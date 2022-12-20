@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/designs/")
+@RequestMapping("/api/v2/")
 public class DesignController {
     private DesignService designService;
 
@@ -57,6 +57,19 @@ public class DesignController {
         }
         return responseEntity;
 
+    }
+    @GetMapping("design/{designCode}")
+    public ResponseEntity<?> getAllDesign(@PathVariable int designCode) {
+        try {
+            responseEntity = new ResponseEntity(designService.getAllDesign(designCode), HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>("Error try save after sometime", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+    @PutMapping("design/{designId}")
+    public ResponseEntity<?> updateDesign(@RequestBody Design design, @PathVariable("designId") String designId) {
+        return new ResponseEntity<>(designService.updateDesign(design, designId), HttpStatus.OK);
     }
 
 }
