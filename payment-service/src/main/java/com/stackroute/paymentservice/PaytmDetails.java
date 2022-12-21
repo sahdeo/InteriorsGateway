@@ -1,5 +1,6 @@
 package com.stackroute.paymentservice;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +34,3 @@ public class PaytmDetails {
     private Map<String, String> details;
 
 }
-
