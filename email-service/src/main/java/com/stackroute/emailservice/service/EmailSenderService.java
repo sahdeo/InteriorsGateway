@@ -32,7 +32,5 @@ public class EmailSenderService {
             return "Error while sending mail";
         }
     }
+
 }
-
-
-

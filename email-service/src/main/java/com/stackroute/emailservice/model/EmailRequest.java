@@ -1,15 +1,19 @@
 package com.stackroute.emailservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-@AllArgsConstructor
 public class EmailRequest {
     private String toEmail;
     private String emailSubject;
     private String emailBody;
 
+    public EmailRequest() {
+
+    }
+
+    public EmailRequest(String toEmail, String emailSubject, String emailBody) {
+        this.toEmail = toEmail;
+        this.emailSubject = emailSubject;
+        this.emailBody = emailBody;
+    }
 
     public String getToEmail() {
         return toEmail;
@@ -35,4 +39,3 @@ public class EmailRequest {
         this.emailBody = emailBody;
     }
 }
-

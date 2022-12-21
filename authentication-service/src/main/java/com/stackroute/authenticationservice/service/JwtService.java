@@ -1,9 +1,9 @@
 package com.stackroute.authenticationservice.service;
 
 import com.stackroute.authenticationservice.dao.UserDao;
-import com.stackroute.authenticationservice.model.JwtRequest;
-import com.stackroute.authenticationservice.model.JwtResponse;
-import com.stackroute.authenticationservice.model.User;
+import com.stackroute.authenticationservice.dto.JwtRequest;
+import com.stackroute.authenticationservice.dto.JwtResponse;
+import com.stackroute.authenticationservice.entity.User;
 import com.stackroute.authenticationservice.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,10 +17,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class JwtService implements UserDetailsService{
+public class JwtService implements UserDetailsService, IJwtService{
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -31,6 +32,7 @@ public class JwtService implements UserDetailsService{
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Override
     public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
         String userName = jwtRequest.getUserName();
         String userPassword = jwtRequest.getUserPassword();
@@ -39,15 +41,21 @@ public class JwtService implements UserDetailsService{
         UserDetails userDetails = loadUserByUsername(userName);
         String newGeneratedToken = jwtUtil.generateToken(userDetails);
 
-        User user = userDao.findById(userName).get();
+        Optional<User> optional = userDao.findById(userName);
+        if(optional.isEmpty()){
+            throw new UsernameNotFoundException("user not found");
+        }
+        User user = optional.get();
         return new JwtResponse(user, newGeneratedToken);
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findById(username).get();
+        Optional<User> optional = userDao.findById(username);
 
-        if (user != null) {
+        if (optional.isPresent()) {
+            User user = optional.get();
             return new org.springframework.security.core.userdetails.User(
                     user.getUserName(),
                     user.getUserPassword(),
@@ -58,7 +66,7 @@ public class JwtService implements UserDetailsService{
         }
     }
 
-    private Set getAuthority(User user) {
+    private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         user.getRole().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
