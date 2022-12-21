@@ -1,6 +1,6 @@
 package com.stackroute.authenticationservice.controller;
 
-import com.stackroute.authenticationservice.model.User;
+import com.stackroute.authenticationservice.entity.User;
 import com.stackroute.authenticationservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping("/registerNewUser")
-    public User registerNewUser(@RequestBody User user){
+    public User registerNewUser(@RequestBody User user) throws Exception{
         return userService.registerNewUser(user);
     }
 
@@ -31,19 +31,10 @@ public class UserController {
     public String forAdmin(){
         return "This URL is only accessible to the admin";
     }
-    @GetMapping("/forUser")
+    @GetMapping("/login")
     @PreAuthorize("hasRole('User')")
     public String forUser(){
         return "This URL is only accessible to the user";
     }
-    @GetMapping("/forCustomer")
-    @PreAuthorize("hasRole('User')")
-    public String forCustomer(){
-        return "This URL is only accessible to the customer";
-    }
-    @GetMapping("/forDesigner")
-    @PreAuthorize("hasRole('User')")
-    public String forDesigner(){
-        return "This URL is only accessible to the designer";
-    }
+
 }
