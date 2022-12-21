@@ -1,5 +1,12 @@
 version: "3"
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    network_mode: "host"
+    ports:
+      - 15672:15672
+      - 5672:5672
   eureka-server:
     build: eureka-server/
     container_name: eureka-server

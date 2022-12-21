@@ -2,18 +2,20 @@ package com.stackroute.authenticationservice.service;
 
 import com.stackroute.authenticationservice.dao.RoleDao;
 import com.stackroute.authenticationservice.dao.UserDao;
-import com.stackroute.authenticationservice.model.Role;
-import com.stackroute.authenticationservice.model.User;
+import com.stackroute.authenticationservice.exception.UserAlredyExistException;
+import com.stackroute.authenticationservice.entity.Role;
+import com.stackroute.authenticationservice.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
 @Service
-public class UserService {
+public class UserService implements IUserService{
 
     @Autowired
     private UserDao userDao;
@@ -24,8 +26,8 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
     public void initRoleAndUser() {
-
         Role adminRole = new Role();
         adminRole.setRoleName("Admin");
         adminRole.setRoleDescription("Admin role");
@@ -57,13 +59,16 @@ public class UserService {
         userDao.save(user);
     }
 
-    public User registerNewUser(User user) {
-        Role role = roleDao.findById("User").get();
+    @Override
+    public User registerNewUser(User user) throws UserAlredyExistException {
         Set<Role> userRoles = new HashSet<>();
-        userRoles.add(role);
+        userRoles.add(roleDao.findById("User").get());
         user.setRole(userRoles);
         user.setUserPassword(getEncodedPassword(user.getUserPassword()));
-
+        Optional<User> optional = userDao.findById(user.getUserName());
+        if(optional.isPresent()){
+            throw new UserAlredyExistException("user is already exist");
+        }
         return userDao.save(user);
     }
 
