@@ -1,16 +1,15 @@
-package com.stockroute.designerservice.service;
+package com.stockroute.designerservice.designer.service;
 
-import com.stockroute.designerservice.exception.DesignAlreadyExistsException;
-import com.stockroute.designerservice.exception.DesignerAlreadyExitsException;
-import com.stockroute.designerservice.model.DesignerEntity;
-import com.stockroute.designerservice.repository.DesignerRepository;
+import com.stockroute.designerservice.designer.model.DesignerEntity;
+import com.stockroute.designerservice.designer.repository.DesignerRepository;
+import com.stockroute.designerservice.designer.exception.DesignerAlreadyExitsException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class DesignerServiceImpl implements DesignerService{
+public class DesignerServiceImpl implements DesignerService {
 @Autowired
 private DesignerRepository designerRepository;
     @Override

@@ -1,4 +1,4 @@
-package com.stockroute.designerservice.model;
+package com.stockroute.designerservice.design.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,8 +1,9 @@
-package com.stockroute.designerservice.controller;
-import com.stockroute.designerservice.exception.DesignAlreadyExistsException;
-import com.stockroute.designerservice.exception.DesignNotFoundException;
-import com.stockroute.designerservice.model.Design;
-import com.stockroute.designerservice.service.DesignService;
+package com.stockroute.designerservice.design.controller;
+
+import com.stockroute.designerservice.design.exception.DesignAlreadyExistsException;
+import com.stockroute.designerservice.design.exception.DesignNotFoundException;
+import com.stockroute.designerservice.design.model.Design;
+import com.stockroute.designerservice.design.service.DesignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class DesignController {
     public DesignController(DesignService designService) {
         this.designService = designService;
     }
-    @PostMapping("design")
+    @PostMapping("/design")
     public ResponseEntity<?> saveDesign(@RequestBody Design design) throws DesignAlreadyExistsException {
         try {
             designService.saveDesign(design);
@@ -35,7 +36,7 @@ public class DesignController {
         return responseEntity;
 
     }
-    @GetMapping("design")
+    @GetMapping("/design")
     public ResponseEntity<?> getDesignDetails() {
         try {
             List<Design> designList = designService.getDesignDetails();
@@ -45,7 +46,7 @@ public class DesignController {
         }
         return responseEntity;
     }
-    @DeleteMapping("design/{designId}")
+    @DeleteMapping("/design/{designId}")
     public ResponseEntity<?> deleteDesign(@PathVariable String designId) throws DesignNotFoundException {
         try {
             designService.deleteDesign(designId);
@@ -58,7 +59,7 @@ public class DesignController {
         return responseEntity;
 
     }
-    @GetMapping("design/{designCode}")
+    @GetMapping("/design/{designCode}")
     public ResponseEntity<?> getAllDesign(@PathVariable int designCode) {
         try {
             responseEntity = new ResponseEntity(designService.getAllDesign(designCode), HttpStatus.OK);
@@ -67,9 +68,10 @@ public class DesignController {
         }
         return responseEntity;
     }
-    @PutMapping("design/{designId}")
+    @PutMapping("/design/{designId}")
     public ResponseEntity<?> updateDesign(@RequestBody Design design, @PathVariable("designId") String designId) {
         return new ResponseEntity<>(designService.updateDesign(design, designId), HttpStatus.OK);
     }
 
 }
+

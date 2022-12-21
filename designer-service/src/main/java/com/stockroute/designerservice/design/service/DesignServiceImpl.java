@@ -1,9 +1,9 @@
-package com.stockroute.designerservice.service;
+package com.stockroute.designerservice.design.service;
 
-import com.stockroute.designerservice.exception.DesignAlreadyExistsException;
-import com.stockroute.designerservice.exception.DesignNotFoundException;
-import com.stockroute.designerservice.model.Design;
-import com.stockroute.designerservice.repository.DesignRepository;
+import com.stockroute.designerservice.design.exception.DesignAlreadyExistsException;
+import com.stockroute.designerservice.design.exception.DesignNotFoundException;
+import com.stockroute.designerservice.design.model.Design;
+import com.stockroute.designerservice.design.repository.DesignRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,13 +36,10 @@ public class DesignServiceImpl implements DesignService {
         return flag;
     }
 
-    @Override
-    public List<Design> getDesignDetails() throws Exception {
-        return designRepository.findAll();
-    }
+
 
     @Override
-    public List<Design> getAllDesign(int design) throws DesignNotFoundException {
+    public List<DesignRepository> getAllDesign(int design) throws DesignNotFoundException {
         if (designRepository.findAllDesignFromCode(design).isEmpty()) {
             throw new DesignNotFoundException();
         }
@@ -58,8 +55,16 @@ public class DesignServiceImpl implements DesignService {
     }
 
     @Override
-    public List<Design> findDesignByDesignId(String designId) {
+    public List<Design> getDesignDetails() throws Exception {
+        return designRepository.findAll();
+    }
+
+
+
+    @Override
+    public List<DesignRepository> findDesignByDesignId(String designId) {
         return designRepository.findByDesignId(designId);
     }
 
 }
+

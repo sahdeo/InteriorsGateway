@@ -1,8 +1,8 @@
-package com.stockroute.designerservice.controller;
-import com.stockroute.designerservice.exception.DesignerAlreadyExitsException;
-import com.stockroute.designerservice.exception.DesignerNotFoundException;
-import com.stockroute.designerservice.model.DesignerEntity;
-import com.stockroute.designerservice.service.DesignerService;
+package com.stockroute.designerservice.designer.controller;
+import com.stockroute.designerservice.designer.exception.DesignerAlreadyExitsException;
+import com.stockroute.designerservice.designer.exception.DesignerNotFoundException;
+import com.stockroute.designerservice.designer.model.DesignerEntity;
+import com.stockroute.designerservice.designer.service.DesignerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

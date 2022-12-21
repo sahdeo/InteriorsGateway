@@ -1,12 +1,13 @@
-package com.stockroute.designerservice.service;
+package com.stockroute.designerservice.designer.service;
 
-import com.stockroute.designerservice.exception.DesignerAlreadyExitsException;
-import com.stockroute.designerservice.exception.DesignerNotFoundException;
-import com.stockroute.designerservice.model.DesignerEntity;
-
+import com.stockroute.designerservice.designer.exception.DesignerAlreadyExitsException;
+import com.stockroute.designerservice.designer.exception.DesignerNotFoundException;
+import com.stockroute.designerservice.designer.model.DesignerEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface DesignerService {
     DesignerEntity saveDesigner(DesignerEntity designerEntity)throws DesignerAlreadyExitsException;
 

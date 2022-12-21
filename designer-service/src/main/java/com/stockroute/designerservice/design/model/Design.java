@@ -1,9 +1,10 @@
-package com.stockroute.designerservice.model;
+package com.stockroute.designerservice.design.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document(collection = "Designs")
 public class Design {
+    @Id
     private String designId;
     private String designName;
     private String designDeatils;
@@ -20,10 +22,5 @@ public class Design {
     private String color;
     private double size;
     private DesignDetails designDetails;
+
 }
-
-
-
-
-
-

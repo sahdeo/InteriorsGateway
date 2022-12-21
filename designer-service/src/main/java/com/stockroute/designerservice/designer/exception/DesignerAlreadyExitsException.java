@@ -1,8 +1,8 @@
-package com.stockroute.designerservice.exception;
+package com.stockroute.designerservice.designer.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.CONFLICT, reason = "product already exists")
+@ResponseStatus(code = HttpStatus.CONFLICT, reason = "designer already exists")
 public class DesignerAlreadyExitsException extends Exception{
 }
