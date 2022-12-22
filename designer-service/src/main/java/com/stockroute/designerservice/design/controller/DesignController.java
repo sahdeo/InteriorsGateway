@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v2/")
+@CrossOrigin("*")
 public class DesignController {
     private DesignService designService;
 
@@ -36,7 +36,7 @@ public class DesignController {
         return responseEntity;
 
     }
-    @GetMapping("/design")
+    @GetMapping("/design/details")
     public ResponseEntity<?> getDesignDetails() {
         try {
             List<Design> designList = designService.getDesignDetails();

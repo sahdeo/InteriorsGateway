@@ -16,11 +16,9 @@ public class Design {
     @Id
     private String designId;
     private String designName;
-    private String designDeatils;
-    private String designPrice;
     private String ratings;
     private String color;
     private double size;
+    private byte[] image;
     private DesignDetails designDetails;
-
 }

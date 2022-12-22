@@ -4,7 +4,6 @@ import com.stockroute.designerservice.design.exception.DesignAlreadyExistsExcept
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
 import com.stockroute.designerservice.design.repository.DesignRepository;
-
 import java.util.List;
 
 public interface DesignService {
@@ -17,7 +16,6 @@ public interface DesignService {
     List<DesignRepository> getAllDesign(int design) throws DesignNotFoundException;
 
     Design updateDesign(Design design, String designId);
-
     List<DesignRepository> findDesignByDesignId(String designId);
 }
 

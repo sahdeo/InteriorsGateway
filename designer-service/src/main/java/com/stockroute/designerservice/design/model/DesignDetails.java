@@ -1,16 +1,10 @@
 package com.stockroute.designerservice.design.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.*;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "DesignDetails")
+@Data
 public class DesignDetails {
     private  String designModel;
     private int designCode;
