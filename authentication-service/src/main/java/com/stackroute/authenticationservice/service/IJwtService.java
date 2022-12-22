@@ -5,5 +5,4 @@ import com.stackroute.authenticationservice.dto.JwtResponse;
 
 public interface IJwtService {
     JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception;
-
 }
