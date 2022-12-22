@@ -1,6 +1,6 @@
 package com.stackroute.authenticationservice.service;
 
-import com.stackroute.authenticationservice.dao.UserDao;
+import com.stackroute.authenticationservice.dao.IUserDao;
 import com.stackroute.authenticationservice.dto.JwtRequest;
 import com.stackroute.authenticationservice.dto.JwtResponse;
 import com.stackroute.authenticationservice.entity.User;
@@ -25,7 +25,7 @@ public class JwtServiceImp implements UserDetailsService, IJwtService {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private UserDao userDao;
+    private IUserDao IUserDao;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -37,7 +37,7 @@ public class JwtServiceImp implements UserDetailsService, IJwtService {
 
         UserDetails userDetails = loadUserByUsername(userName);
         String newGeneratedToken = jwtUtil.generateToken(userDetails);
-        Optional<User> optional = userDao.findById(userName);
+        Optional<User> optional = IUserDao.findById(userName);
         if (optional.isEmpty()) {
             throw new UsernameNotFoundException("User '"+userName+"'not found");
         }
@@ -45,7 +45,7 @@ public class JwtServiceImp implements UserDetailsService, IJwtService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> optional = userDao.findById(username);
+        Optional<User> optional = IUserDao.findById(username);
         if (optional.isEmpty()) {
             throw new UsernameNotFoundException("User '"+username+"'not found");
         }
