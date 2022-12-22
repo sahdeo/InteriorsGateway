@@ -1,9 +1,15 @@
 package com.stackroute.userservice.dto;
 
+import com.stackroute.userservice.entity.Role;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Data
 public class AddUser {
 
     @Size(min = 2,max=20,message = "name should between 2 and 20")
@@ -24,47 +30,15 @@ public class AddUser {
     private String confirmPassword;
 
     @NotBlank(message = "Mobile no. can't be blank or empty")
-    private String MobileNo;
+    private String mobileNo;
+
+
+    @NotBlank(message = "Role can't be blank or empty")
+    private Role role;
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-
-    public String getMobileNo() {
-        return MobileNo;
-    }
-
-    public void setMobileNo(String mobileNo) {
-        MobileNo = mobileNo;
-    }
 }
 
