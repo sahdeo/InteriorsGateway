@@ -4,10 +4,7 @@ package com.stackroute.userservice.service;
 import com.stackroute.userservice.dto.AddUser;
 import com.stackroute.userservice.dto.UserDetails;
 import com.stackroute.userservice.entity.User;
-import com.stackroute.userservice.exception.EmailAlreadyExists;
-import com.stackroute.userservice.exception.InvalidArgumentException;
-import com.stackroute.userservice.exception.PasswordDoesNotMatchException;
-import com.stackroute.userservice.exception.UserNotFoundException;
+import com.stackroute.userservice.exception.*;
 import com.stackroute.userservice.repository.IUserRepository;
 import com.stackroute.userservice.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +38,14 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDetails register(AddUser requestData) throws EmailAlreadyExists, UserNotFoundException, PasswordDoesNotMatchException, InvalidArgumentException {
         PasswordAuthentication(requestData.getPassword(),requestData.getConfirmPassword());
+       MobileNoValidator(requestData.getMobileNo());
         User user = new User();
         user.setUserName(requestData.getUserName());
         user.setEmailId(requestData.getEmailId());
         user.setPassword(passwordEncoder.encode(requestData.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(requestData.getConfirmPassword()));
         user.setMobileNo(requestData.getMobileNo());
-        //user.setRole(userUtil.getRoleType(requestData.getRole()));
+        user.setRole(requestData.getRole());
         Optional<User> userentry = userrepo.findByUserName(user.getUserName());
         Optional<User> userEmail = userrepo.findByEmailId(user.getEmailId());
         if(userentry.isPresent()){
@@ -98,5 +96,11 @@ public class UserServiceImpl implements IUserService {
         return new BCryptPasswordEncoder();
     }
 
+    public void MobileNoValidator(String mobileNo){
+        if (mobileNo.length()==10){
+            return;
+        }
+        else new MobileNoNotValidException("Mobile number is less that 10 digits Please enter valid mobile number");
+    }
 
 }
