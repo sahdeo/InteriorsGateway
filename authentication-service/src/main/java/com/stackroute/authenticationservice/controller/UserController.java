@@ -9,11 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -23,13 +19,13 @@ public class UserController {
     private JwtServiceImp jwtServiceImp;
 
 
-    @PostMapping("/registerNewUser")
+    @PostMapping(value = "/registerNewUser")
     public ResponseEntity<User> registerNewUser(@RequestBody User user){
          user = userServiceImp.registerNewUser(user);
          return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PostMapping({"/authenticate"})
+    @PostMapping(value = "/authenticate")
     public ResponseEntity<JwtResponse> createJwtToken(@RequestBody User user) throws Exception {
         JwtRequest jwtRequest = new JwtRequest(user.getUserName(), user.getUserPassword());
        // userServiceImp.registerNewUser(user);
@@ -38,15 +34,21 @@ public class UserController {
     }
 
     @GetMapping("/forAdmin")
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String forAdmin(){
         return "This URL is only accessible to the admin";
     }
 
-    @GetMapping("/forUser")
-    @PreAuthorize("hasRole('User')")
+    @GetMapping("/loginCustomer")
+    @PreAuthorize("hasRole('CUSTOMER')")
+
     public String forUser(){
-        return "This URL is only accessible to the user";
+        return "This URL is only accessible to the Customer";
+    }
+    @GetMapping("/loginDesigner")
+    @PreAuthorize("hasRole('DESIGNER')")
+    public String forDesigner(){
+        return "This URL is only accessible to the Designer";
     }
 }
 
