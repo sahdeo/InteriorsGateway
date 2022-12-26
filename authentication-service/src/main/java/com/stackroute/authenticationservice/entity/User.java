@@ -33,5 +33,4 @@ public class User {
     @Column(name = "user_role")
     private Roles role;
 
-
 }
