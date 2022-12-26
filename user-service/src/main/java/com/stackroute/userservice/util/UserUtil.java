@@ -1,12 +1,16 @@
 package com.stackroute.userservice.util;
 
 import com.stackroute.userservice.dto.UserDetails;
+import com.stackroute.userservice.entity.Role;
 import com.stackroute.userservice.entity.User;
+import com.stackroute.userservice.exception.InvalidArgumentException;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class UserUtil {
@@ -20,7 +24,7 @@ public class UserUtil {
         desired.setPassword(user.getPassword());
         desired.setConfirmPassword(user.getConfirmPassword());
         desired.setMobileNo(user.getMobileNo());
-//        desired.setRole(Role.valueOf(user.getRole().toString()));
+        desired.setRole(user.getRole());
 
         return desired;
     }
@@ -32,7 +36,7 @@ public class UserUtil {
         return list;
     }
 
-  /*  public Role getRoleType(String type) throws InvalidArgumentException{
+   /* public Role getRoleType(String type) throws InvalidArgumentException {
         if(type==null || type.isBlank()){
             throw new InvalidArgumentException("Type cannot be null or empty");
         }
@@ -42,8 +46,8 @@ public class UserUtil {
             throw new InvalidArgumentException("Role is not valid");
         }
         return optional.get();
-    }*/
-
+    }
+*/
 
 
 }
