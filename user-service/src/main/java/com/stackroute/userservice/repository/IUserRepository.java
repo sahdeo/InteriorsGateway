@@ -10,5 +10,7 @@ public interface IUserRepository extends MongoRepository<User,String> {
     Optional<User> findByUserName(String username);
     Optional<User> findByEmailId(String emailId);
 
+    //Long DeleteEmailId(String emailId);
+
 
 }
