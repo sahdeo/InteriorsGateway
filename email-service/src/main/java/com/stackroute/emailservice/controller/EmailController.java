@@ -22,6 +22,7 @@ public class EmailController {
     public EmailResponse sendEmail(@RequestBody EmailRequest request) {
         Map<String, Object> model = new HashMap<>();
         model.put("Name", request.getName());
+        /*model.put("location", "Bangalore,India");*/
 
         return senderService.sendEmail(request, model);
 

@@ -41,12 +41,14 @@ public class EmailSenderService {
             helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
 
 
+          /*  Template t = config.getTemplate("email-template.ftl");*/
             Template t = config.getTemplate("email-template.ftl");
 
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
            /* helper.setText(request.getName());*/
             helper.setTo(request.getToEmail());
+            /*helper.setText(html, true);*/
             helper.setText(html, true);
             helper.setSubject(request.getEmailSubject());
             helper.setFrom(request.getEmailFrom());
