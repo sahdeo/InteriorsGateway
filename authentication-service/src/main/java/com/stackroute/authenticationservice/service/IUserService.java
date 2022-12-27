@@ -1,9 +1,10 @@
 package com.stackroute.authenticationservice.service;
 
-import com.stackroute.authenticationservice.exception.UserAlredyExistException;
 import com.stackroute.authenticationservice.entity.User;
+import com.stackroute.authenticationservice.exception.UserNotFoundException;
 
 public interface IUserService {
-    public void initRoleAndUser();
-    User registerNewUser(User user) throws UserAlredyExistException;
+    User registerNewUser(User user);
+    User findByUsername(String userName) throws UserNotFoundException;
+
 }
