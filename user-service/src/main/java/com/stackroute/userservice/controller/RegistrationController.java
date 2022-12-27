@@ -32,7 +32,11 @@ public class RegistrationController {
         return response;
     }
 
-
+    @GetMapping("/byemail/{emailID}")
+    public UserDetails findByEmailId(@PathVariable String EmailId) throws Exception {
+        UserDetails response = service.findByEmail(EmailId);
+        return response;
+    }
 
 
 

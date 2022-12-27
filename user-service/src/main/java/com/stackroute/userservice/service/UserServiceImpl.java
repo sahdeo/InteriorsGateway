@@ -40,8 +40,8 @@ public class UserServiceImpl implements IUserService {
         PasswordAuthentication(requestData.getPassword(),requestData.getConfirmPassword());
        MobileNoValidator(requestData.getMobileNo());
         User user = new User();
-        user.setUserName(requestData.getUserName());
-        user.setEmailId(requestData.getEmailId());
+        user.setUserName(requestData.getUserName().trim());
+        user.setEmailId(requestData.getEmailId().trim().toString());
         user.setPassword(passwordEncoder.encode(requestData.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(requestData.getConfirmPassword()));
         user.setMobileNo(requestData.getMobileNo());
@@ -70,13 +70,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDetails findByEmail(String email) throws  UserNotFoundException {
+    public UserDetails findByEmail(String email) throws InvalidArgumentException, UserNotFoundException {
         Optional<User> optional = userrepo.findByEmailId(email);
         if(optional.isEmpty()){
             throw new UserNotFoundException("User not found by emailId= "+email);
         }
         return userUtil.toUserDetails(optional.get());
     }
+
+
+
+
 
 
 
