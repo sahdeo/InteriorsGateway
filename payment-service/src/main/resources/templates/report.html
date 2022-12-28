@@ -2,12 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8"/>
-    <title>Payment Report</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-</head>
+    <head>
+        <head>
+            <meta charset="UTF-8"/>
+            <title>Payment Report</title>
+            <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"
+                  id="bootstrap-css"/>
+            <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        </head>
 <body>
 <div class="container">
     <div class="row">
@@ -25,27 +28,85 @@
             </div>
             <div class="row">
                 <div class="text-center">
-                    <h1>Receipt</h1>
                 </div>
+                <div id="whatToPrint">
+                    <h3 style="font-family:courier;;color:BLACK">INTERIORS GATEWAY PAYMENT RECEIPT</h3>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Components</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Components</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        <tr th:each="entry : ${parameters}">
 
-                    <tr th:each="entry : ${parameters}">
+                            <td th:text="${entry.key} + '  : -  ' + ${entry.value}"></td>
 
-                        <td th:text="${entry.key} + '  : -  ' + ${entry.value}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </head>
+                </head>
 
-                    </tr>
-                    </tbody>
-                </table>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+                <link rel="stylesheet" href="style.css">
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                <!DOCTYPE html>
+
+
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Creating PDF from HTML</title>
+                <link rel="stylesheet" href="style.css">
+
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+
+                <p1>Click below to download receipt</p1>
+                <!--<img src="https://th.bing.com/th/id/OIP.wdkLi0wAUuLf5gdNFincPwHaEd?pid=ImgDet&rs=1"/>-->
+
+                <a href="javascript:generatePDF()" id="downloadButton">
+                    <button class="btn" style="width:100%"><i class="fa fa-download"></i> Download</button>
+                </a>
+
+
+                <script>
+        async function generatePDF() {
+            document.getElementById("downloadButton").innerHTML = "Currently downloading, please wait";
+
+            //Downloading
+            var downloading = document.getElementById("whatToPrint");
+            var doc = new jsPDF('p', 'pt', 'a5');
+
+            await html2canvas(downloading, {
+                //allowTaint: true,
+                //useCORS: true,
+                width: 550
+            }).then((canvas) => {
+                //Canvas (convert to PNG)
+                doc.addImage(canvas.toDataURL("image/png"), 'PNG', 75, 75, 300, 300);
+            })
+
+            doc.save("Receipt.pdf");
+
+            //End of downloading
+
+            document.getElementById("downloadButton").innerHTML = "Click to download";
+        }
+
+                </script>
+
+
             </div>
         </div>
     </div>
 </div>
-</body>
-</html>
