@@ -23,6 +23,4 @@ public interface IUserService {
     UserDetails updateEmail(@Valid UpdateEmailDto requestData) throws UserNotFoundException;
     
     List<UserDetails> fetchAll();
-
-   /* Boolean DeleteEmailId(String emailID);*/
 }

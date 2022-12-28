@@ -100,14 +100,6 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
-    /*public Boolean DeleteEmailId(String email){
-        if(userrepo.findByEmailId(email).isEmpty()){
-            return false;
-        }
-        userrepo.DeleteEmailId(email);
-        return true;
-    }*/
-
     public void PasswordAuthentication(String password, String ConfirmPassword) throws PasswordDoesNotMatchException {
         if(password.equalsIgnoreCase(ConfirmPassword)){
             return;
