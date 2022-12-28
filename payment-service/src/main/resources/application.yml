@@ -1,9 +1,23 @@
-################ Eureka Properties #########################
-eureka:
-client:
-register-with-eureka: true
-fetch-registry: true
-service-url:
-defaultZone: http://localhost:8761/eureka
-instance:
-  hostname: localhost
+paytm:
+    email: abiaravinth05@gmail.com
+    mobile: 9715715401
+    payment:
+        sandbox:
+            callbackUrl: http://localhost:9097/pgresponse
+            channelId: WEB
+            details:
+                CALLBACK_URL: ${paytm.payment.sandbox.callbackUrl}
+                CHANNEL_ID: ${paytm.payment.sandbox.channelId}
+                INDUSTRY_TYPE_ID: ${paytm.payment.sandbox.industryTypeId}
+                MID: ${paytm.payment.sandbox.merchantId}
+                WEBSITE: ${paytm.payment.sandbox.website}
+            industryTypeId: Retail
+            merchantId: YxbKJj73792936211082
+            merchantKey: LOPeRIFkOA3DGwCp
+            paytmUrl: https://securegw-stage.paytm.in/order/process
+            website: WEBSTAGING
+server:
+    port: 9097
+spring:
+    application:
+        name: PAYMENT_SERVICE

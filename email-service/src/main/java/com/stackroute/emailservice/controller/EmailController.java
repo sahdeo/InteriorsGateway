@@ -1,6 +1,5 @@
 package com.stackroute.emailservice.controller;
-import java.util.HashMap;
-import java.util.Map;
+
 import com.stackroute.emailservice.dto.EmailRequest;
 import com.stackroute.emailservice.dto.EmailResponse;
 import com.stackroute.emailservice.service.EmailSenderService;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController

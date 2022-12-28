@@ -1,0 +1,26 @@
+client: ''
+defaultZone: http://localhost:8761/eureka
+eureka: ''
+fetch-registry: true
+hostname: localhost
+instance: ''
+register-with-eureka: true
+server:
+    port: 8089
+service-url: ''
+spring:
+    application:
+        name: EMAIL_SERVICE
+    mail:
+        default-encoding: UTF-8
+        host: smtp.gmail.com
+        password: ytttxtfkdejifbid
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+        test-connection: false
+        username: interiors.gateway@gmail.com

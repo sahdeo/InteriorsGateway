@@ -2,6 +2,7 @@ package com.stackroute.paymentservice;
 
 
 import com.paytm.pg.merchant.PaytmChecksum;
+import com.stackroute.customerservice.paymentservice.PaytmDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;

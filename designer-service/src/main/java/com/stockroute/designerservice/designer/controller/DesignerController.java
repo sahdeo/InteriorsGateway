@@ -34,7 +34,7 @@ public class DesignerController {
     }
 
     @DeleteMapping("/deletebyEmail/{designerId}")
-    public ResponseEntity<?> deleteUser(@PathVariable("designerId") String designerId){
+    public ResponseEntity<?> deleteDesigner(@PathVariable("designerId") String designerId){
         return new ResponseEntity<>(designerService.deleteDesignerById(designerId), HttpStatus.ACCEPTED);
     }
 
