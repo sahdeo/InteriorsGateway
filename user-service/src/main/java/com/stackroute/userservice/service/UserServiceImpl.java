@@ -2,6 +2,7 @@ package com.stackroute.userservice.service;
 
 
 import com.stackroute.userservice.dto.AddUser;
+import com.stackroute.userservice.dto.UpdateEmailDto;
 import com.stackroute.userservice.dto.UserDetails;
 import com.stackroute.userservice.entity.User;
 import com.stackroute.userservice.exception.*;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -40,8 +42,8 @@ public class UserServiceImpl implements IUserService {
         PasswordAuthentication(requestData.getPassword(),requestData.getConfirmPassword());
        MobileNoValidator(requestData.getMobileNo());
         User user = new User();
-        user.setUserName(requestData.getUserName());
-        user.setEmailId(requestData.getEmailId());
+        user.setUserName(requestData.getUserName().trim());
+        user.setEmailId(requestData.getEmailId().trim().toString());
         user.setPassword(passwordEncoder.encode(requestData.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(requestData.getConfirmPassword()));
         user.setMobileNo(requestData.getMobileNo());
@@ -70,7 +72,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDetails findByEmail(String email) throws  UserNotFoundException {
+    public UserDetails findByEmail(String email) throws InvalidArgumentException, UserNotFoundException {
         Optional<User> optional = userrepo.findByEmailId(email);
         if(optional.isEmpty()){
             throw new UserNotFoundException("User not found by emailId= "+email);
@@ -78,7 +80,33 @@ public class UserServiceImpl implements IUserService {
         return userUtil.toUserDetails(optional.get());
     }
 
+    @Override
+    public UserDetails updateEmail(UpdateEmailDto requestData) throws UserNotFoundException {
+        User user = findByusername(requestData.getUsername().trim());
+        user.setEmailId(requestData.getNewEmail());
+        user = userrepo.save(user);
+        UserDetails desired = userUtil.toUserDetails(user);
+        return desired;
+    }
 
+
+    public User findByusername(String username) throws UserNotFoundException {
+        Optional<User> optional = userrepo.findByUserName(username.trim());
+        if(optional.isEmpty()){
+            throw new UserNotFoundException("Username not found");
+
+        }
+        User user = optional.get();
+        return user;
+    }
+
+    /*public Boolean DeleteEmailId(String email){
+        if(userrepo.findByEmailId(email).isEmpty()){
+            return false;
+        }
+        userrepo.DeleteEmailId(email);
+        return true;
+    }*/
 
     public void PasswordAuthentication(String password, String ConfirmPassword) throws PasswordDoesNotMatchException {
         if(password.equalsIgnoreCase(ConfirmPassword)){
@@ -90,6 +118,12 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    public List<UserDetails> fetchAll(){
+        List<User> users = userrepo.findAll();
+        List<UserDetails> desired = userUtil.toUserDetailsList(users);
+        return desired;
+
+    }
 
     @Bean
     public PasswordEncoder encoder() {

@@ -1,56 +1,40 @@
 package com.stackroute.authenticationservice.controller;
 
-import com.stackroute.authenticationservice.dto.JwtRequest;
-import com.stackroute.authenticationservice.dto.JwtResponse;
 import com.stackroute.authenticationservice.entity.User;
-import com.stackroute.authenticationservice.service.JwtServiceImp;
-import com.stackroute.authenticationservice.service.UserServiceImp;
+import com.stackroute.authenticationservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.PostConstruct;
 
 @RestController
 public class UserController {
     @Autowired
-    private UserServiceImp userServiceImp;
-    @Autowired
-    private JwtServiceImp jwtServiceImp;
+    private UserService userService;
 
-
-    @PostMapping(value = "/registerNewUser")
-    public ResponseEntity<User> registerNewUser(@RequestBody User user){
-         user = userServiceImp.registerNewUser(user);
-         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    @PostConstruct
+    public void initRoleAndUser(){
+        userService.initRoleAndUser();
     }
 
-    @PostMapping(value = "/authenticate")
-    public ResponseEntity<JwtResponse> createJwtToken(@RequestBody User user) throws Exception {
-        JwtRequest jwtRequest = new JwtRequest(user.getUserName(), user.getUserPassword());
-       // userServiceImp.registerNewUser(user);
-        JwtResponse jwtResponse = jwtServiceImp.createJwtToken(jwtRequest);
-        return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
+    @PostMapping("/registerNewUser")
+    public User registerNewUser(@RequestBody User user) throws Exception{
+        return userService.registerNewUser(user);
     }
 
     @GetMapping("/forAdmin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('Admin')")
     public String forAdmin(){
         return "This URL is only accessible to the admin";
     }
-
-    @GetMapping("/loginCustomer")
-    @PreAuthorize("hasRole('CUSTOMER')")
-
+    @GetMapping("/login")
+    @PreAuthorize("hasRole('User')")
     public String forUser(){
-        return "This URL is only accessible to the Customer";
+        return "This URL is only accessible to the user";
     }
-    @GetMapping("/loginDesigner")
-    @PreAuthorize("hasRole('DESIGNER')")
-    public String forDesigner(){
-        return "This URL is only accessible to the Designer";
-    }
+
 }
-
-
-
