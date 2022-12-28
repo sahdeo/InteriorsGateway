@@ -3,6 +3,9 @@ package com.stockroute.designerservice.designer.model;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @Setter
@@ -14,8 +17,8 @@ public class Designer {
     private String designerId;
     private String firstName;
     private String lastName;
-    private String EmailId;
-    private String startDate;
+    private String emailId;
+    private LocalDateTime startDate;
     private String endDate;
-    private boolean Status;
+    private boolean status;
 }

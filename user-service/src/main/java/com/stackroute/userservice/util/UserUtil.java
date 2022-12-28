@@ -18,8 +18,9 @@ public class UserUtil {
 
     public UserDetails toUserDetails(User user){
         UserDetails desired=new UserDetails();
-        desired.setId(user.getId());
         desired.setUserName(user.getUserName());
+        desired.setFirstName(user.getUserFirstName());
+        desired.setLastName(user.getUserLastName());
         desired.setEmailId(user.getEmailId().trim());
         desired.setPassword(user.getPassword());
         desired.setConfirmPassword(user.getConfirmPassword());

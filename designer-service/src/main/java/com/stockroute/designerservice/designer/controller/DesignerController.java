@@ -1,4 +1,5 @@
 package com.stockroute.designerservice.designer.controller;
+import com.stockroute.designerservice.designer.exception.IdNotFound;
 import com.stockroute.designerservice.designer.exception.ProfileAlreadyExit;
 import com.stockroute.designerservice.designer.model.Designer;
 import com.stockroute.designerservice.designer.service.DesignerService;
@@ -6,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v11")
@@ -19,28 +22,37 @@ public class DesignerController {
     }
 
     @PostMapping("/addDesigner")
-    public Designer createDesignerProfile(@RequestBody Designer designer) throws ProfileAlreadyExit {
-        return designerService.saveDesigner(designer);
+    public ResponseEntity<Designer> createDesignerProfile(@RequestBody Designer designer) throws ProfileAlreadyExit {
+         designerService.saveDesigner(designer);
+        return new ResponseEntity<>(designer,HttpStatus.CREATED);
     }
 
     @GetMapping("/AllUDesigners")
-    public ResponseEntity<?> getAllDesignerDetails() {
-        return new ResponseEntity<>(designerService.getAllDesigners(), HttpStatus.OK);
+    public ResponseEntity<List<Designer>> getAllDesignerDetails() {
+        List<Designer> designerList=designerService.getAllDesigners();
+        return new ResponseEntity<>(designerList, HttpStatus.OK);
     }
 
     @GetMapping("/findByEmailId/{EmailId}")
-    public ResponseEntity<?> getdesignerByEmailId(@PathVariable String EmailId) {
-        return new ResponseEntity<>(designerService.findDesignersByEmailId(EmailId), HttpStatus.OK);
+    public ResponseEntity<List<Designer>> getdesignerByEmailId(@PathVariable String EmailId) {
+        List<Designer> designerListByEmail=designerService.findDesignersByEmailId(EmailId);
+        return new ResponseEntity<>(designerListByEmail, HttpStatus.OK);
     }
 
     @DeleteMapping("/deletebyEmail/{designerId}")
-    public ResponseEntity<?> deleteDesigner(@PathVariable("designerId") String designerId){
-        return new ResponseEntity<>(designerService.deleteDesignerById(designerId), HttpStatus.ACCEPTED);
+    public ResponseEntity<Boolean> deleteDesigner(@PathVariable("designerId") String designerId) throws IdNotFound {
+        Boolean isDeleted=designerService.deleteDesignerByDesignerId(designerId);
+        return new ResponseEntity<>(isDeleted, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/clearAllHistory")
     public ResponseEntity<String> clearOrderHistory(){
-        return new ResponseEntity<>(designerService.deleteAllOrders(),HttpStatus.OK);
+        String responseString=designerService.deleteAllOrders();
+        return new ResponseEntity<>(responseString,HttpStatus.OK);
     }
-
+    @GetMapping("/findByDesignerId/{DesignerId}")
+    public ResponseEntity<Designer> getDesignerByDesignerId(@PathVariable String DesignerId) throws IdNotFound {
+        Designer designer=designerService.findDesignerByDesignerId(DesignerId);
+        return new ResponseEntity<>(designer, HttpStatus.OK);
+    }
 }

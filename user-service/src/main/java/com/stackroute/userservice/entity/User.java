@@ -24,6 +24,12 @@ public class User {
     @Field(name="user_name")
     private String userName;
 
+    @Field(name="first_name")
+    private String userFirstName;
+
+    @Field(name="last_name")
+    private String userLastName;
+
     @Field(name="password")
     private String password;
 

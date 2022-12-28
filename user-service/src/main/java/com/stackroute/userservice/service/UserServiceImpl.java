@@ -6,6 +6,7 @@ import com.stackroute.userservice.dto.UpdateEmailDto;
 import com.stackroute.userservice.dto.UserDetails;
 import com.stackroute.userservice.entity.User;
 import com.stackroute.userservice.exception.*;
+import com.stackroute.userservice.rabbitmqConfig.Producer;
 import com.stackroute.userservice.repository.IUserRepository;
 import com.stackroute.userservice.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -23,26 +23,30 @@ public class UserServiceImpl implements IUserService {
 
     private IUserRepository userrepo;
 
+    private Producer producer;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     private UserUtil userUtil;
 
     @Autowired
-    public UserServiceImpl(IUserRepository userrepo , UserUtil userUtil){
-        this.userrepo=userrepo;
-        this.userUtil=userUtil;
+    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil) {
+        this.userrepo = userrepo;
+        this.userUtil = userUtil;
     }
 
-    private Random random=new Random();
+    private Random random = new Random();
 
 
     @Override
-    public UserDetails register(AddUser requestData) throws EmailAlreadyExists, UserNotFoundException, PasswordDoesNotMatchException, InvalidArgumentException {
-        PasswordAuthentication(requestData.getPassword(),requestData.getConfirmPassword());
-       MobileNoValidator(requestData.getMobileNo());
+    public UserDetails register(AddUser requestData) throws EmailAlreadyExists, UserNotFoundException, PasswordDoesNotMatchException, InvalidArgumentException, MobileNoNotValidException {
+        passwordValidator(requestData.getPassword(), requestData.getConfirmPassword());
+        contactNumberValidator(requestData.getMobileNo());
         User user = new User();
         user.setUserName(requestData.getUserName().trim());
+        user.setUserFirstName(requestData.getUserFirstName());
+        user.setUserLastName(requestData.getUserLastName());
         user.setEmailId(requestData.getEmailId().trim().toString());
         user.setPassword(passwordEncoder.encode(requestData.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(requestData.getConfirmPassword()));
@@ -50,23 +54,24 @@ public class UserServiceImpl implements IUserService {
         user.setRole(requestData.getRole());
         Optional<User> userentry = userrepo.findByUserName(user.getUserName());
         Optional<User> userEmail = userrepo.findByEmailId(user.getEmailId());
-        if(userentry.isPresent()){
+        if (userentry.isPresent()) {
             throw new UserNotFoundException("Username already exists !!");
         } else if (userEmail.isPresent()) {
             throw new EmailAlreadyExists("Email Id already Exists !!");
         }
-        user=userrepo.save(user);
-        UserDetails desired=userUtil.toUserDetails(user);
+        user = userrepo.save(user);
+        UserDetails desired = userUtil.toUserDetails(user);
+       // producer.sendMessageToRabbitmq(user);
         return desired;
     }
 
 
     @Override
-    public UserDetails findByUsername(String username) throws  UserNotFoundException {
+    public UserDetails findByUsername(String username) throws UserNotFoundException {
 
         Optional<User> optional = userrepo.findByUserName(username);
-        if(optional.isEmpty()){
-            throw new UserNotFoundException("user not found by username= "+username);
+        if (optional.isEmpty()) {
+            throw new UserNotFoundException("user not found by username= " + username);
         }
         return userUtil.toUserDetails(optional.get());
     }
@@ -74,8 +79,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDetails findByEmail(String email) throws InvalidArgumentException, UserNotFoundException {
         Optional<User> optional = userrepo.findByEmailId(email);
-        if(optional.isEmpty()){
-            throw new UserNotFoundException("User not found by emailId= "+email);
+        if (optional.isEmpty()) {
+            throw new UserNotFoundException("User not found by emailId= " + email);
         }
         return userUtil.toUserDetails(optional.get());
     }
@@ -92,7 +97,7 @@ public class UserServiceImpl implements IUserService {
 
     public User findByusername(String username) throws UserNotFoundException {
         Optional<User> optional = userrepo.findByUserName(username.trim());
-        if(optional.isEmpty()){
+        if (optional.isEmpty()) {
             throw new UserNotFoundException("Username not found");
 
         }
@@ -100,17 +105,21 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
-    public void PasswordAuthentication(String password, String ConfirmPassword) throws PasswordDoesNotMatchException {
-        if(password.equalsIgnoreCase(ConfirmPassword)){
-            return;
+    public Boolean DeleteEmailId(String email) {
+        if (userrepo.findByEmailId(email).isEmpty()) {
+            return false;
         }
-        else {
-            throw new PasswordDoesNotMatchException("Password and ConfirmPassword Fields does not match");
-        }
-
+        userrepo.deleteById(email);
+        return true;
     }
 
-    public List<UserDetails> fetchAll(){
+    public void passwordValidator(String password, String confirmPassword) throws PasswordDoesNotMatchException {
+        if (!password.equals(confirmPassword)) {
+            throw new PasswordDoesNotMatchException("Password and ConfirmPassword Fields does not match");
+        }
+    }
+
+    public List<UserDetails> fetchAll() {
         List<User> users = userrepo.findAll();
         List<UserDetails> desired = userUtil.toUserDetailsList(users);
         return desired;
@@ -122,11 +131,12 @@ public class UserServiceImpl implements IUserService {
         return new BCryptPasswordEncoder();
     }
 
-    public void MobileNoValidator(String mobileNo){
-        if (mobileNo.length()==10){
+    public void contactNumberValidator(String mobileNo) throws MobileNoNotValidException {
+        if (mobileNo.length() != 10) {
+            throw new MobileNoNotValidException("Mobile number is less that 10 digits Please enter valid mobile number");
+        } else {
             return;
         }
-        else new MobileNoNotValidException("Mobile number is less that 10 digits Please enter valid mobile number");
-    }
 
+    }
 }

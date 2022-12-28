@@ -1,19 +1,21 @@
 package com.stackroute.userservice.dto;
 
 import com.stackroute.userservice.entity.Role;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDetails {
-
-    private String id;
 
     private String emailId;
 
     private String userName;
+
+    private String firstName;
+
+    private String lastName;
 
     private String password;
 
@@ -22,5 +24,6 @@ public class UserDetails {
     private String mobileNo;
 
     private Role role;
+
 
 }

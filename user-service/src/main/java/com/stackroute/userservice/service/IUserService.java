@@ -3,10 +3,7 @@ package com.stackroute.userservice.service;
 import com.stackroute.userservice.dto.AddUser;
 import com.stackroute.userservice.dto.UpdateEmailDto;
 import com.stackroute.userservice.dto.UserDetails;
-import com.stackroute.userservice.exception.EmailAlreadyExists;
-import com.stackroute.userservice.exception.InvalidArgumentException;
-import com.stackroute.userservice.exception.PasswordDoesNotMatchException;
-import com.stackroute.userservice.exception.UserNotFoundException;
+import com.stackroute.userservice.exception.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -14,7 +11,7 @@ import java.util.List;
 
 @Validated
 public interface IUserService {
-    UserDetails register(@Valid AddUser requestData) throws InvalidArgumentException, EmailAlreadyExists, UserNotFoundException, PasswordDoesNotMatchException;
+    UserDetails register(@Valid AddUser requestData) throws InvalidArgumentException, EmailAlreadyExists, UserNotFoundException, PasswordDoesNotMatchException, MobileNoNotValidException;
 
     UserDetails findByUsername(String username) throws InvalidArgumentException,  UserNotFoundException;
 
@@ -23,4 +20,6 @@ public interface IUserService {
     UserDetails updateEmail(@Valid UpdateEmailDto requestData) throws UserNotFoundException;
     
     List<UserDetails> fetchAll();
+
+   Boolean DeleteEmailId(String emailID);
 }
