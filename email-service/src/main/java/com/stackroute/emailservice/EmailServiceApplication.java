@@ -18,8 +18,7 @@ public class EmailServiceApplication {
 	private EmailRequest emailRequest;
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(EmailServiceApplication.class, args);
+	public static void main(String[] args) {SpringApplication.run(EmailServiceApplication.class, args);
 	}
 
 }
