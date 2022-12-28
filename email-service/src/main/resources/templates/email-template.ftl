@@ -41,7 +41,6 @@
 	</table>
 </body>
 
-
 <!-- <table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td align="center" valign="top" bgcolor="#e0ffff"
@@ -53,15 +52,14 @@
 
 							 <footer style="font-size: 24px; color: #555100;">
 								<br> Welcome to <b>Interiors Gateway<br>
-							</footer>
+							</footer> -->
 
 						</td>
 					</tr>
 				</table>
 			</td>
 		</tr>
-	</table> -->
-
+	</table>
 
                   <body>
                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -155,7 +153,21 @@
                             </body>
 
 
+<!-- <style>
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: DarkSalmon;
+  color: white;
+}
+</style>
+</head>
+<body>
 
+<footer>
+  <p>In case of any query please write us with below address<br>
+  <a href="mailto:interiors.gateway@gmail.com">interiors.gateway@gmail.com</a></p>
+</footer> -->
 
 
 </html>

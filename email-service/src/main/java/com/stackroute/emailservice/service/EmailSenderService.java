@@ -1,36 +1,69 @@
 package com.stackroute.emailservice.service;
 
-import com.stackroute.emailservice.model.EmailRequest;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import com.stackroute.emailservice.dto.EmailRequest;
+import com.stackroute.emailservice.dto.EmailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
+
 
 @Service
 public class EmailSenderService {
 
     @Autowired
-    private JavaMailSender mailSender;
-    @Value("${spring.mail.username}")
-    private String sender;
+    private JavaMailSender sender;
 
-    public String sendEmail(EmailRequest emailRequest) {
+    @Autowired
+    private Configuration config;
+
+    public EmailResponse sendEmail(EmailRequest request, Map<String, Object> model) {
+        EmailResponse response = new EmailResponse();
+        MimeMessage message = sender.createMimeMessage();
         try {
+            // set mediaType
+            MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                    StandardCharsets.UTF_8.name());
+            // add attachment
+            helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
 
-            SimpleMailMessage message = new SimpleMailMessage();
 
-            message.setFrom(sender);
-            message.setTo(emailRequest.getToEmail());
-            message.setText(emailRequest.getEmailBody());
-            message.setSubject(emailRequest.getEmailSubject());
+          /*  Template t = config.getTemplate("email-template.ftl");*/
+            Template t = config.getTemplate("email-template.ftl");
 
-            mailSender.send(message);
-            return "email sent";
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
-        } catch (Exception e) {
-            return "Error while sending mail";
+           /* helper.setText(request.getName());*/
+            helper.setTo(request.getToEmail());
+            /*helper.setText(html, true);*/
+            helper.setText(html, true);
+            helper.setSubject(request.getEmailSubject());
+            helper.setFrom(request.getEmailFrom());
+            sender.send(message);
+
+            response.setMessage("mail send to : " + request.getToEmail());
+            response.setStatus(Boolean.TRUE);
+
+        } catch (MessagingException | IOException | TemplateException e) {
+            response.setMessage("Mail Sending failure : "+e.getMessage());
+            response.setStatus(Boolean.FALSE);
         }
+
+        return response;
     }
+
 
 }
