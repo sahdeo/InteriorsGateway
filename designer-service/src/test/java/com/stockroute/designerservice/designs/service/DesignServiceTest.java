@@ -69,18 +69,5 @@ public class DesignServiceTest {
         verify(designRepository, times(1)).findById(any());
 
     }
-
-    @Test
-    public void givenDesignToDeleteShouldDeleteSuccess() throws DesignNotFoundException {
-
-        when(designRepository.findById(design1.getDesignId())).thenReturn(Optional.ofNullable(design1));
-        boolean flag = designService.deleteDesign(design1.getDesignId());
-        assertTrue(flag);
-        verify(designRepository, times(1)).findById(anyString());
-        verify(designRepository, times(1)).deleteById(anyString());
-
-    }
-
-
 }
 

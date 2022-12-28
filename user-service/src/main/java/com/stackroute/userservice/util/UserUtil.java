@@ -20,7 +20,7 @@ public class UserUtil {
         UserDetails desired=new UserDetails();
         desired.setId(user.getId());
         desired.setUserName(user.getUserName());
-        desired.setEmailId(user.getEmailId());
+        desired.setEmailId(user.getEmailId().trim());
         desired.setPassword(user.getPassword());
         desired.setConfirmPassword(user.getConfirmPassword());
         desired.setMobileNo(user.getMobileNo());

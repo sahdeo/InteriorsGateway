@@ -1,6 +1,6 @@
 package com.stackroute.authenticationservice.service;
 
-import com.stackroute.authenticationservice.dao.IUserDao;
+import com.stackroute.authenticationservice.dao.UserDao;
 import com.stackroute.authenticationservice.dto.JwtRequest;
 import com.stackroute.authenticationservice.dto.JwtResponse;
 import com.stackroute.authenticationservice.entity.User;
@@ -16,19 +16,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
-public class JwtServiceImp implements UserDetailsService, IJwtService {
+public class JwtService implements UserDetailsService, IJwtService{
 
     @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
-    private IUserDao IUserDao;
+    private UserDao userDao;
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Override
     public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
         String userName = jwtRequest.getUserName();
@@ -37,28 +40,38 @@ public class JwtServiceImp implements UserDetailsService, IJwtService {
 
         UserDetails userDetails = loadUserByUsername(userName);
         String newGeneratedToken = jwtUtil.generateToken(userDetails);
-        Optional<User> optional = IUserDao.findById(userName);
-        if (optional.isEmpty()) {
-            throw new UsernameNotFoundException("User '"+userName+"'not found");
+
+        Optional<User> optional = userDao.findById(userName);
+        if(optional.isEmpty()){
+            throw new UsernameNotFoundException("user not found");
         }
-        return new JwtResponse(optional.get(), newGeneratedToken);
+        User user = optional.get();
+        return new JwtResponse(user, newGeneratedToken);
     }
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> optional = IUserDao.findById(username);
-        if (optional.isEmpty()) {
-            throw new UsernameNotFoundException("User '"+username+"'not found");
-        }
+        Optional<User> optional = userDao.findById(username);
 
-        return org.springframework.security.core.userdetails.User
-                .withUsername(username)
-                .password(optional.get().getUserPassword())
-                .authorities(new SimpleGrantedAuthority("ROLE_" + optional.get().getRole()))
-                .accountExpired(false)
-                .accountLocked(false)
-                .credentialsExpired(false)
-                .disabled(false)
-                .build();
+        if (optional.isPresent()) {
+            User user = optional.get();
+            return new org.springframework.security.core.userdetails.User(
+                    user.getUserName(),
+                    user.getUserPassword(),
+                    getAuthority(user)
+            );
+        } else {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+    }
+
+    private Set<SimpleGrantedAuthority> getAuthority(User user) {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        user.getRole().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+        });
+        return authorities;
     }
 
     private void authenticate(String userName, String userPassword) throws Exception {
@@ -71,11 +84,3 @@ public class JwtServiceImp implements UserDetailsService, IJwtService {
         }
     }
 }
-/**
- *  .authorities(String.valueOf(optional.get().getRole()))
- *   .accountExpired(false)
- *   .accountLocked(false)
- *    .credentialsExpired(false)
- *    .disabled(false)
- *      .build()
- */

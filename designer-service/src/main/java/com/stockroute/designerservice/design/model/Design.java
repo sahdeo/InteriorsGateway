@@ -1,17 +1,15 @@
 package com.stockroute.designerservice.design.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "Designs")
+@Builder
 public class Design {
     @Id
     private String designId;
@@ -19,6 +17,7 @@ public class Design {
     private String ratings;
     private String color;
     private double size;
-    private byte[] image;
+    @Schema(hidden=true)
+   private byte[] image;
     private DesignDetails designDetails;
 }

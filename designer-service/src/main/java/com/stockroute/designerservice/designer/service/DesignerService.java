@@ -1,25 +1,23 @@
 package com.stockroute.designerservice.designer.service;
-
-import com.stockroute.designerservice.designer.exception.DesignerAlreadyExitsException;
-import com.stockroute.designerservice.designer.exception.DesignerNotFoundException;
-import com.stockroute.designerservice.designer.model.DesignerEntity;
+import com.stockroute.designerservice.designer.exception.ProfileAlreadyExit;
+import com.stockroute.designerservice.designer.model.Designer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface DesignerService {
-    DesignerEntity saveDesigner(DesignerEntity designerEntity)throws DesignerAlreadyExitsException;
 
-    List<DesignerEntity> getAllDesigners();
+    Designer saveDesigner(Designer designer) throws ProfileAlreadyExit;
 
-    List<DesignerEntity> findDesignersByDesignerId(String designerId);
-    List<DesignerEntity> findDesignersByEmailId(String emailId);
+    List<Designer> getAllDesigners();
 
+    List<Designer> findDesignersByEmailId(String designerId);
 
-    DesignerEntity updateDesigner(DesignerEntity designerEntity);
+    Designer updateDesigner(Designer designer);
 
-    List<DesignerEntity> deleteDesignerById(String designerId)throws DesignerNotFoundException;
+    List<Designer> deleteDesignerById(String designerId);
 
     String deleteAllOrders();
+
 }

@@ -1,6 +1,6 @@
 package com.stackroute.emailservice;
 
-import com.stackroute.emailservice.dto.EmailRequest;
+import com.stackroute.emailservice.model.EmailRequest;
 import com.stackroute.emailservice.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

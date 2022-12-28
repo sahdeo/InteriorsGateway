@@ -65,7 +65,7 @@ public class DesignControllerTest {
     @Test
     public void givenDesignToSaveReturnSaveDesign() throws Exception {
         when(designService.saveDesign(any())).thenReturn(design1);
-        mockMvc.perform(post("/api/v1/design/design")
+        mockMvc.perform(post("/api/v2/design")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonToString(design1)))
                 .andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
@@ -75,7 +75,7 @@ public class DesignControllerTest {
     @Test
     public void givenDesignToSaveDesignFailure() throws Exception {
         when(designService.saveDesign(any())).thenThrow(DesignAlreadyExistsException.class);
-        mockMvc.perform(post("/api/v1/designs/design")
+        mockMvc.perform(post("/api/v2/design")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonToString(design1)))
                 .andExpect(status().isConflict()).andDo(MockMvcResultHandlers.print());
@@ -86,7 +86,7 @@ public class DesignControllerTest {
     @Test
     public void givenDesignCodeDeleteDesign() throws Exception {
         when(designService.deleteDesign(anyString())).thenReturn(true);
-        mockMvc.perform(delete("/api/v1/designs/design/1")
+        mockMvc.perform(delete("/api/v2/design/design1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(designService, times(1)).deleteDesign(anyString());
