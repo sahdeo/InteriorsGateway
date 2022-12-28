@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2/")
+@RequestMapping("/api/v2")
 @CrossOrigin("*")
 public class DesignController {
     private DesignService designService;
@@ -22,6 +25,17 @@ public class DesignController {
     public DesignController(DesignService designService) {
         this.designService = designService;
     }
+
+    @PostMapping(value = "/upload image", consumes = {"multipart/form-data"})
+    public ResponseEntity<?> saveImage(@RequestParam("designId") String designId, @RequestParam("file")MultipartFile file) throws IOException {
+        try {
+            responseEntity = new ResponseEntity<>(designService.uploadImage(designId, file), HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return responseEntity;
+    }
+
     @PostMapping("/design")
     public ResponseEntity<?> saveDesign(@RequestBody Design design) throws DesignAlreadyExistsException {
         try {
@@ -71,6 +85,10 @@ public class DesignController {
     @PutMapping("/design/{designId}")
     public ResponseEntity<?> updateDesign(@RequestBody Design design, @PathVariable("designId") String designId) {
         return new ResponseEntity<>(designService.updateDesign(design, designId), HttpStatus.OK);
+    }
+    @GetMapping("/findByDesignId/{designId}")
+    public ResponseEntity<?> getUserByDesigneId(@PathVariable String designId) throws DesignNotFoundException {
+        return new ResponseEntity<>(designService.findDesignByDesignId(designId), HttpStatus.OK);
     }
 
 }

@@ -1,7 +1,12 @@
 package com.stackroute.customerservice.authenticationservice.configuration;
 
+<<<<<<< HEAD:authentication-service/src/main/java/com/stackroute/customerservice/authenticationservice/configuration/JwtRequestFilter.java
 import com.stackroute.customerservice.authenticationservice.service.JwtServiceImp;
 import com.stackroute.customerservice.authenticationservice.util.JwtUtil;
+=======
+import com.stackroute.authenticationservice.service.JwtService;
+import com.stackroute.authenticationservice.util.JwtUtil;
+>>>>>>> ac9f2dd2c45337eb2d8b4d107e42b6709308af41:authentication-service/src/main/java/com/stackroute/authenticationservice/configuration/JwtRequestFilter.java
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +30,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private JwtServiceImp jwtServiceImp;
+    private JwtService jwtService;
 
 
     @Override
@@ -51,7 +56,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = jwtServiceImp.loadUserByUsername(username);
+            UserDetails userDetails = jwtService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(jwtToken, userDetails)) {
 
