@@ -30,3 +30,8 @@ spring:
                 trust: 'smtp.gmail.com  '
         test-connection: false
         username: interiors.gateway@gmail.com
+#   rabbitmq:
+#        host: localhost
+#        port: 5672
+#        username: root
+#        password: root123

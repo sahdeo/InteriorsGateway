@@ -31,9 +31,10 @@ public class UserServiceImpl implements IUserService {
     private UserUtil userUtil;
 
     @Autowired
-    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil) {
+    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil, Producer producer) {
         this.userrepo = userrepo;
         this.userUtil = userUtil;
+        this.producer=producer;
     }
 
     private Random random = new Random();
@@ -60,11 +61,11 @@ public class UserServiceImpl implements IUserService {
             throw new EmailAlreadyExists("Email Id already Exists !!");
         }
         user = userrepo.save(user);
+        producer.sendMessageToRabbitmq(user);
         UserDetails desired = userUtil.toUserDetails(user);
-       // producer.sendMessageToRabbitmq(user);
+
         return desired;
     }
-
 
     @Override
     public UserDetails findByUsername(String username) throws UserNotFoundException {

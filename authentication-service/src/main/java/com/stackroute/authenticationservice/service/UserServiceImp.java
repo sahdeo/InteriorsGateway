@@ -4,9 +4,11 @@ import com.stackroute.authenticationservice.dao.IUserDao;
 import com.stackroute.authenticationservice.entity.User;
 import com.stackroute.authenticationservice.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.dom.DOMCryptoContext;
 import java.util.Optional;
 
 
@@ -18,7 +20,7 @@ public class UserServiceImp implements IUserService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    UserServiceImp(IUserDao userDao, PasswordEncoder passwordEncoder) {
+    public UserServiceImp(IUserDao userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
 //        this.producer = producer;
        // this.passwordEncoder = passwordEncoder;
@@ -38,8 +40,8 @@ public class UserServiceImp implements IUserService {
         return optional.get();
     }
 
-    public String getEncodedPassword(String password) {
-        return passwordEncoder.encode(password);
+    public PasswordEncoder getEncodedPassword(String password) {
+        return new BCryptPasswordEncoder();
     }
 
 }

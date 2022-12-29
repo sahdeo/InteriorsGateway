@@ -15,7 +15,7 @@ public class UserDto {
 //    private String userPassword;
 //    private Roles role;
 
-    private PasswordEncoder passwordEncoder;
+  //  private PasswordEncoder passwordEncoder;
 
     private String emailId;
 
