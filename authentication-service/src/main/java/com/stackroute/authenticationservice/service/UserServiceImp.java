@@ -3,31 +3,38 @@ package com.stackroute.authenticationservice.service;
 import com.stackroute.authenticationservice.dao.IUserDao;
 import com.stackroute.authenticationservice.entity.User;
 import com.stackroute.authenticationservice.exception.UserNotFoundException;
+import com.stackroute.authenticationservice.rabbitmqConfig.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import rabbitmq.domain.UserDto;
 
 import javax.xml.crypto.dom.DOMCryptoContext;
 import java.util.Optional;
+import java.util.Random;
 
 
 @Service
 public class UserServiceImp implements IUserService {
 
     private IUserDao userDao;
-   // private Producer producer;
+    private Producer producer;
     private PasswordEncoder passwordEncoder;
-
+    private Random random;
     @Autowired
-    public UserServiceImp(IUserDao userDao, PasswordEncoder passwordEncoder) {
+    public UserServiceImp(IUserDao userDao, Producer producer) {
         this.userDao = userDao;
-//        this.producer = producer;
-       // this.passwordEncoder = passwordEncoder;
+        this.producer = producer;
     }
 
     @Override
     public User registerNewUser(User user) {
+        UserDto userDto= new UserDto();
+        userDto.setEmailId(user.getEmailId());
+        userDto.setUserFirstName(user.getUserFirstName());
+        userDto.setRole(user.getRole());
+        producer.sendMessageToRabbitmq(userDto);
         return userDao.save(user);
     }
 
@@ -35,9 +42,19 @@ public class UserServiceImp implements IUserService {
     public User findByUsername(String emailId) throws UserNotFoundException {
         Optional<User> optional = userDao.findById(emailId);
         if (optional.isEmpty()) {
-            throw new UserNotFoundException("usranme is missing");
+            throw new UserNotFoundException("username is missing");
         }
         return optional.get();
+    }
+
+    @Override
+    public String forgotPassword(String emailId) throws UserNotFoundException {
+
+        int otp = random.nextInt(999999);
+        UserDto userDto = new UserDto();
+        userDto.setEmailId(emailId);
+        userDto.setOtp(otp);
+        return null;
     }
 
     public PasswordEncoder getEncodedPassword(String password) {

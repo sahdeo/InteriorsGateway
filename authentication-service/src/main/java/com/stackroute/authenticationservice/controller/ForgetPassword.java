@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ForgetPassword {
     @Autowired
     private IUserService userService;
-    public String forgotPassword(String username) throws UserNotFoundException {
-        User user = userService.findByUsername(username);
+    public String forgotPassword(String emailId) throws UserNotFoundException {
+        User user = userService.findByUsername(emailId);
         return null;
     }
 }

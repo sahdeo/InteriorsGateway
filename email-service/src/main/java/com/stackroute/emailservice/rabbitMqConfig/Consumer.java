@@ -1,35 +1,31 @@
 package com.stackroute.emailservice.rabbitMqConfig;
 
-import com.stackroute.authenticationservice.entity.User;
-import com.stackroute.authenticationservice.service.UserServiceImp;
+import com.stackroute.emailservice.controller.EmailController;
+import com.stackroute.emailservice.dto.EmailRequest;
+import com.stackroute.emailservice.service.EmailSenderService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import rabbitmq.domain.UserDto;
+import rabbit.domain.UserDto;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class Consumer {
     @Autowired
-    private UserServiceImp userService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private EmailController emailController;
     @RabbitListener(queues="user-queue")
-    public void getDataFromRabbitmq(UserDto userDto) throws Exception{
-        User user = new User();
-        user.setEmailId(userDto.getEmailId());
-        user.setUserPassword(userDto.getUserPassword());
-        user.setConfirmPassword(userDto.getConfirmPassword());
-        user.setUserFirstName(userDto.getUserFirstName());
-        user.setUserLastName(userDto.getUserLastName());
-        user.setMobileNo(userDto.getMobileNo());
-        user.setRole(userDto.getRole());
-        userService.registerNewUser(user);
+    public void getDataFromRabbitmq(UserDto request) throws Exception{
+        EmailRequest emailRequest= new EmailRequest();
+        emailRequest.setEmailFrom(request.getEmailId());
+        emailRequest.setEmailSubject("Welcome to Interiors Gateway");
+        emailRequest.setEmailFrom("interiors.gateway@gmail.com");
+        emailRequest.setName(request.getName());
+//        Map<String, Object> modeMap = new HashMap<>();
+//        modeMap.put("Name", request.getName());
+        emailController.sendEmail(emailRequest);
     }
 
-    public String getEncodedPassword(String password) {
-       return new BCryptPasswordEncoder().encode(password);
-        //return passwordEncoder.de(password);
-    }
+
 }

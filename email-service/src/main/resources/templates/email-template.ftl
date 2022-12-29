@@ -29,7 +29,7 @@
 								 where you can choose wide range of budget friendly designs"<br>
 
 								<br>"Thanks to login with Interiors Gateway" <br> <br>
-                                <br> <br> <b>${Name}</b>
+                                <br> <br> <b><#if myOptionalVar??>when-present<#else>when-missing</#if>${Name}</b>
 								<br>
                              </div>
 

@@ -1,6 +1,7 @@
 package com.stackroute.authenticationservice.rabbitmqConfig;
 
 import com.stackroute.authenticationservice.dto.JwtRequest;
+import com.stackroute.authenticationservice.entity.User;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class Producer {
         this.messageConfig = messageConfig;
     }
 
-    public void sendMessageToRabbitmq(JwtRequest userDto){
+    public void sendMessageToRabbitmq(UserDto userDto){
         rabbitTemplate.convertAndSend(messageConfig.EXCHANGE, messageConfig.ROUTING_KEY, userDto);
     }
 

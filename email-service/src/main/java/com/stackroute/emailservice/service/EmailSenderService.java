@@ -59,7 +59,7 @@ public class EmailSenderService {
             response.setMessage("Mail Sending failure : "+e.getMessage());
             response.setStatus(Boolean.FALSE);
         }
-
+        System.out.println("email sent");
         return response;
     }
 

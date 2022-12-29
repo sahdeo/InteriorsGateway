@@ -19,8 +19,7 @@ public class UserController {
     private UserServiceImp userServiceImp;
     @Autowired
     private JwtServiceImp jwtServiceImp;
-    @Autowired
-    private Producer producer;
+
 
     @PostMapping(value = "/registerNewUser")
     public ResponseEntity<User> registerNewUser(@RequestBody User user){
@@ -33,7 +32,6 @@ public class UserController {
         JwtRequest jwtRequest = new JwtRequest(user.getEmailId(), user.getUserPassword());
        // userServiceImp.registerNewUser(user);
         JwtResponse jwtResponse = jwtServiceImp.createJwtToken(jwtRequest);
-        producer.sendMessageToRabbitmq(jwtRequest);
         return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
 
