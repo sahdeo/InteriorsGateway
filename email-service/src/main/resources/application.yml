@@ -20,8 +20,14 @@ spring:
             mail:
                 smtp:
                     auth: true
+                    ssl:
+                        trust: smtp.gmail.com
                     starttls:
                         enable: true
+                        required: 'true  '
+        smtp:
+            ssl:
+                trust: 'smtp.gmail.com  '
         test-connection: false
         username: interiors.gateway@gmail.com
 #   rabbitmq:

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -32,6 +33,7 @@ public class EmailSenderService {
         EmailResponse response = new EmailResponse();
         MimeMessage message = sender.createMimeMessage();
         try {
+
             // set mediaType
             MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                     StandardCharsets.UTF_8.name());
@@ -39,14 +41,14 @@ public class EmailSenderService {
             helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
 
 
-          /*  Template t = config.getTemplate("email-template.ftl");*/
-            Template t = config.getTemplate("email-template.ftl");
+
+            Template t = config.getTemplate("email-template.ftl-1");
 
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
-           /* helper.setText(request.getName());*/
-            helper.setTo(request.getToEmail());
-            /*helper.setText(html, true);*/
+
+            helper.setTo(InternetAddress.parse(request.getToEmail()));
+
             helper.setText(html, true);
             helper.setSubject(request.getEmailSubject());
             helper.setFrom(request.getEmailFrom());
