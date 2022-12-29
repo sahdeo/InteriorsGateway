@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import rabbitmq.domain.EmailDto;
 import rabbitmq.domain.UserDto;
 
 import javax.xml.crypto.dom.DOMCryptoContext;
@@ -21,7 +22,6 @@ public class UserServiceImp implements IUserService {
     private IUserDao userDao;
     private Producer producer;
     private PasswordEncoder passwordEncoder;
-    private Random random;
     @Autowired
     public UserServiceImp(IUserDao userDao, Producer producer) {
         this.userDao = userDao;
@@ -34,7 +34,7 @@ public class UserServiceImp implements IUserService {
         userDto.setEmailId(user.getEmailId());
         userDto.setUserFirstName(user.getUserFirstName());
         userDto.setRole(user.getRole());
-        producer.sendMessageToRabbitmq(userDto);
+        producer.sendMessageToRabbitmqReg(userDto);
         return userDao.save(user);
     }
 
@@ -48,13 +48,14 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
-    public String forgotPassword(String emailId) throws UserNotFoundException {
-
+    public EmailDto forgotPassword(String emailId) throws UserNotFoundException {
+        Random random = new Random();
         int otp = random.nextInt(999999);
-        UserDto userDto = new UserDto();
-        userDto.setEmailId(emailId);
-        userDto.setOtp(otp);
-        return null;
+        EmailDto emailDto = new EmailDto();
+        emailDto.setEmailId(emailId);
+        emailDto.setOtp(otp);
+        producer.sendMessageToRabbitmq(emailDto);
+        return emailDto;
     }
 
     public PasswordEncoder getEncodedPassword(String password) {

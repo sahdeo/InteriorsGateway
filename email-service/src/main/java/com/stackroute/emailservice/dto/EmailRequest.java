@@ -11,8 +11,8 @@ public class EmailRequest {
     private String name;
     private String toEmail;
     private String emailSubject;
-    /*private String emailBody;*/
-    private String emailFrom;
+    private String emailBody;
+   // private String emailFrom;
 
 
 }

@@ -18,7 +18,7 @@ public class Producer {
     }
 
     public void sendMessageToRabbitmq(User user){
-        rabbitTemplate.convertAndSend(messageConfig.EXCHANGE, messageConfig.ROUTING_KEY, user);
+        rabbitTemplate.convertAndSend(messageConfig.EXCHANGE, messageConfig.ROUTING_KEY_REG, user);
     }
 
 }
