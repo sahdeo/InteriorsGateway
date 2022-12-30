@@ -61,9 +61,9 @@ public class UserServiceImpl implements IUserService {
             throw new EmailAlreadyExists("Email Id already Exists !!");
         }
         user = userrepo.save(user);
-        producer.sendMessageToRabbitmq(user);
-        UserDetails desired = userUtil.toUserDetails(user);
 
+        UserDetails desired = userUtil.toUserDetails(user);
+        producer.sendMessageToRabbitmq(desired);
         return desired;
     }
 

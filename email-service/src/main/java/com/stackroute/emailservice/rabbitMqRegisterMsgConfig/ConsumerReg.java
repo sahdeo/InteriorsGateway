@@ -31,6 +31,8 @@ public class ConsumerReg {
         model.put("Name", emailRequest.getName());
         emailSenderService.sendEmail(emailRequest,model);
         //emailController.sendEmail(emailRequest);
+
+
     }
 
 

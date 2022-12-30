@@ -26,7 +26,5 @@ public class UserDto {
 
     private String mobileNo;
 
-    private int otp;
-
     private Roles role;
 }
