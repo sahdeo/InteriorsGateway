@@ -14,5 +14,5 @@ public class ApiConfig {
         bean.setTemplateLoaderPath("classpath:/templates");
         return bean;
     }
-
 }
+

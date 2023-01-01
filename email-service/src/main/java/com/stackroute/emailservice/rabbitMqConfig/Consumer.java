@@ -1,6 +1,5 @@
 package com.stackroute.emailservice.rabbitMqConfig;
 
-import com.stackroute.emailservice.controller.EmailController;
 import com.stackroute.emailservice.dto.EmailRequest;
 import com.stackroute.emailservice.service.EmailServiceJavaApi;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -9,9 +8,11 @@ import org.springframework.stereotype.Component;
 import rabbit.domain.EmailDto;
 
 
+
+
 @Component
 public class Consumer {
-//    @Autowired
+    //    @Autowired
 //    private EmailController emailController;
     @Autowired
     private EmailServiceJavaApi emailServiceJavaApi;

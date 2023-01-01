@@ -2,6 +2,7 @@ package com.stackroute.authenticationservice.service;
 
 import com.stackroute.authenticationservice.dao.IUserDao;
 import com.stackroute.authenticationservice.entity.User;
+import com.stackroute.authenticationservice.enums.Roles;
 import com.stackroute.authenticationservice.exception.UserNotFoundException;
 import com.stackroute.authenticationservice.rabbitmqConfig.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,15 @@ public class UserServiceImp implements IUserService {
     public User registerNewUser(User user) {
         UserDto userDto= new UserDto();
         userDto.setEmailId(user.getEmailId());
+        userDto.setUserPassword(user.getUserPassword());
         userDto.setUserFirstName(user.getUserFirstName());
+        userDto.setUserLastName(user.getUserLastName());
+        userDto.setMobileNo(user.getMobileNo());
         userDto.setRole(user.getRole());
         producer.sendMessageToRabbitmqReg(userDto);
         return userDao.save(user);
     }
+
 
     @Override
     public User findByUsername(String emailId) throws UserNotFoundException {

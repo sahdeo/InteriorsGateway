@@ -10,6 +10,7 @@ import rabbitmq.domain.EmailDto;
 
 import java.util.Map;
 
+
 @Configuration
 public class MessageConfig {
 
@@ -58,5 +59,4 @@ public class MessageConfig {
         rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;
     }
-
 }

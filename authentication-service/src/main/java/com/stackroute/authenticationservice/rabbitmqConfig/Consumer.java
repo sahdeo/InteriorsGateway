@@ -18,18 +18,18 @@ public class Consumer {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @RabbitListener(queues="register-queue")
-    public void getDataFromRabbitmq(UserDto userDto) throws Exception{
+    public void getDataFromRabbitmq(UserDto userDto) throws Exception {
         User user = new User();
         user.setEmailId(userDto.getEmailId());
         user.setUserPassword(userDto.getUserPassword());
-        user.setConfirmPassword(userDto.getConfirmPassword());
+        //user.setConfirmPassword(userDto.getConfirmPassword());
         user.setUserFirstName(userDto.getUserFirstName());
         user.setUserLastName(userDto.getUserLastName());
         user.setMobileNo(userDto.getMobileNo());
         user.setRole(userDto.getRole());
         userService.registerNewUser(user);
-    }
 
+    }
     public String getEncodedPassword(String password) {
        return new BCryptPasswordEncoder().encode(password);
         //return passwordEncoder.de(password);

@@ -71,11 +71,3 @@ public class JwtServiceImp implements UserDetailsService, IJwtService {
         }
     }
 }
-/**
- *  .authorities(String.valueOf(optional.get().getRole()))
- *   .accountExpired(false)
- *   .accountLocked(false)
- *    .credentialsExpired(false)
- *    .disabled(false)
- *      .build()
- */

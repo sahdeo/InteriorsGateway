@@ -27,15 +27,10 @@ public class EmailController {
     public ResponseEntity<EmailResponse> sendEmail(@RequestBody EmailRequest request) {
         Map<String, Object> model = new HashMap<>();
         model.put("Name", request.getName());
-        /*model.put("location", "Bangalore,India");*/
 
-       //  EmailResponse response = senderService.sendEmail(request, model);
         EmailResponse response = senderService.sendEmail(request,model);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-
-
 }
 
 

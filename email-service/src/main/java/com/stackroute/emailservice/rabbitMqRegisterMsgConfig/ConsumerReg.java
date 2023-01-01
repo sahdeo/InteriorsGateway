@@ -13,9 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+
 @Component
 public class ConsumerReg {
-//    @Autowired
+//        @Autowired
 //    private EmailController emailController;
     @Autowired
     private EmailSenderService emailSenderService;
@@ -30,10 +31,9 @@ public class ConsumerReg {
         Map<String, Object> model = new HashMap<>();
         model.put("Name", emailRequest.getName());
         emailSenderService.sendEmail(emailRequest,model);
-        //emailController.sendEmail(emailRequest);
-
-
+       // emailController.sendEmail(emailRequest);
     }
 
 
 }
+

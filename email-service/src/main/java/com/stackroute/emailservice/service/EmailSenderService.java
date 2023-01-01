@@ -39,11 +39,13 @@ public class EmailSenderService {
             // add attachment
             helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
 
+
             Template t = config.getTemplate("email-template.ftl");
 
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
-            helper.setTo(InternetAddress.parse(request.getToEmail()));
+
+            helper.setTo(request.getToEmail());
             helper.setText(html,true);
             helper.setSubject(request.getEmailSubject());
             helper.setFrom("interiors.gateway@gmail.com");
@@ -60,3 +62,4 @@ public class EmailSenderService {
         return response;
     }
 }
+
