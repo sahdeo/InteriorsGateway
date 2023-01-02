@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -40,7 +41,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors();
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate", "/registerNewUser").permitAll()
+
+                .authorizeRequests().antMatchers("/auth/**","/swagger-ui/**","/forgetPassword","/v3/api-docs/**")
+                .permitAll()
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -51,6 +54,25 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
+//        @Override
+//        public void configure(WebSecurity web) throws Exception {
+//            web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**")
+//             .antMatchers("/swagger-resources/**")
+//                    .antMatchers("/swagger-ui/index.html")
+//                    .antMatchers("/public");
+//        }
+
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        // Allow swagger to be accessed without authentication
+//        web.ignoring().antMatchers("/v2/api-docs")
+//                .antMatchers("/swagger-resources/**")
+//                .antMatchers("/swagger-ui/index.html")
+//                .antMatchers("/configuration/**")
+//                .antMatchers("/webjars/**")
+//                .antMatchers("/public");
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
