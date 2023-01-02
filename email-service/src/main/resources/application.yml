@@ -14,13 +14,25 @@ spring:
     mail:
         default-encoding: UTF-8
         host: smtp.gmail.com
-        password: ytttxtfkdejifbid
+        password: irsrxukdsqnhstlz
         port: 587
         properties:
             mail:
                 smtp:
                     auth: true
+                    ssl:
+                        trust: smtp.gmail.com
                     starttls:
                         enable: true
+                        required: 'true'
+        smtp:
+            ssl:
+                trust: 'smtp.gmail.com'
         test-connection: false
         username: interiors.gateway@gmail.com
+#   rabbitmq:
+#        host: localhost
+#        port: 5672
+#        username: root
+#        password: root123
+#587

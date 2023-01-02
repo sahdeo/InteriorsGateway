@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -39,17 +40,15 @@ public class EmailSenderService {
             helper.addAttachment("logo.png", new ClassPathResource("logo.png"));
 
 
-          /*  Template t = config.getTemplate("email-template.ftl");*/
             Template t = config.getTemplate("email-template.ftl");
 
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
-           /* helper.setText(request.getName());*/
+
             helper.setTo(request.getToEmail());
-            /*helper.setText(html, true);*/
-            helper.setText(html, true);
+            helper.setText(html,true);
             helper.setSubject(request.getEmailSubject());
-            helper.setFrom(request.getEmailFrom());
+            helper.setFrom("interiors.gateway@gmail.com");
             sender.send(message);
 
             response.setMessage("mail send to : " + request.getToEmail());
@@ -59,9 +58,8 @@ public class EmailSenderService {
             response.setMessage("Mail Sending failure : "+e.getMessage());
             response.setStatus(Boolean.FALSE);
         }
-
+        System.out.println("email sent");
         return response;
     }
-
-
 }
+

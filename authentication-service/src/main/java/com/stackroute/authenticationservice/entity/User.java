@@ -26,38 +26,16 @@ public class User {
     private String userFirstName;
     @Column(name = "lastName")
     private String userLastName;
-    @Length( min = 8,message = "password must contain at least 8 characters")
     @Column(name = "password")
     private String userPassword;
-    @Length( min = 8,message = "password must contain at least 8 characters")
-    @Column(name = "confirmed_password")
-    private String confirmPassword;
     @Column(name = "contact_no")
     private String mobileNo;
     @Column(name = "user_role")
     private Roles role;
 
 }
-
-//    private String emailId;
-//
-//    @Field(name="user_name")
-//    private String userName;
-//
-//    @Field(name="first_name")
-//    private String userFirstName;
-//
-//    @Field(name="last_name")
-//    private String userLastName;
-//
-//    @Field(name="password")
-//    private String password;
-//
-//    @Field(name="confirm_password")
-//    private String confirmPassword;
-//
-//    @Field(name="mobile_no")
-//    private String mobileNo;
-//
-//    @Field(name="role")
-//    private Role role;
+/**
+ *  @Length( min = 8,message = "password must contain at least 8 characters")
+ *     @Column(name = "confirmed_password")
+ *     private String confirmPassword;
+ */

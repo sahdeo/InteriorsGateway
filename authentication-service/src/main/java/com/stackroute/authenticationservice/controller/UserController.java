@@ -3,8 +3,10 @@ package com.stackroute.authenticationservice.controller;
 import com.stackroute.authenticationservice.dto.JwtRequest;
 import com.stackroute.authenticationservice.dto.JwtResponse;
 import com.stackroute.authenticationservice.entity.User;
+import com.stackroute.authenticationservice.rabbitmqConfig.Producer;
 import com.stackroute.authenticationservice.service.JwtServiceImp;
 import com.stackroute.authenticationservice.service.UserServiceImp;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import rabbitmq.domain.UserDto;
 
 @RestController
+@RequestMapping("/auth")
+@SecurityRequirement(name = "auth")
+
 public class UserController {
     @Autowired
     private UserServiceImp userServiceImp;

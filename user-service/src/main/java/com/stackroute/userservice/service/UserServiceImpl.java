@@ -9,6 +9,7 @@ import com.stackroute.userservice.exception.*;
 import com.stackroute.userservice.rabbitmqConfig.Producer;
 import com.stackroute.userservice.repository.IUserRepository;
 import com.stackroute.userservice.util.UserUtil;
+import domain.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,9 +32,10 @@ public class UserServiceImpl implements IUserService {
     private UserUtil userUtil;
 
     @Autowired
-    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil) {
+    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil, Producer producer) {
         this.userrepo = userrepo;
         this.userUtil = userUtil;
+        this.producer=producer;
     }
 
     private Random random = new Random();
@@ -60,11 +62,21 @@ public class UserServiceImpl implements IUserService {
             throw new EmailAlreadyExists("Email Id already Exists !!");
         }
         user = userrepo.save(user);
+        UserDto userDto = new UserDto();
+        userDto.setEmailId(user.getEmailId());
+        userDto.setUserFirstName(user.getUserFirstName());
+        userDto.setUserLastName(user.getUserLastName());
+        //userDto.setUserPassword(requestData.getPassword());
+        userDto.setUserPassword(passwordEncoder.encode(requestData.getPassword()));
+        userDto.setMobileNo(user.getMobileNo());
+        userDto.setRole(user.getRole());
+
+        producer.sendMessageToRabbitmq(userDto);
+
         UserDetails desired = userUtil.toUserDetails(user);
-        producer.sendMessageToRabbitmq(user);
+
         return desired;
     }
-
 
     @Override
     public UserDetails findByUsername(String username) throws UserNotFoundException {
