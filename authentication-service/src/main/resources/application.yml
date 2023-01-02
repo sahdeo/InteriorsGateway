@@ -1,7 +1,7 @@
 ################ Eureka Properties #########################
 spring:
   application:
-    name: designer-service
+    name: authentication-service
 eureka:
 client:
 register-with-eureka: true
