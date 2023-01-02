@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,8 +39,8 @@ public class DesignerServiceTest {
     @BeforeEach
     public void setup() {
         list = new ArrayList<>();
-        designer = Designer.builder().designerId("101").EmailId("Chinna@123").
-                firstName("chinna").lastName("chinnu").startDate("12-12-2023").endDate("13-12-2023").Status(true).build();
+        designer = Designer.builder().designerId("101").emailId("Chinna@123").
+                firstName("chinna").lastName("chinnu").startDate(LocalDateTime.parse("12-12-2023")).endDate("13-12-2023").status(true).build();
 
     }
 

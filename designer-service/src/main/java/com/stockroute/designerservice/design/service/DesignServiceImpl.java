@@ -2,6 +2,7 @@ package com.stockroute.designerservice.design.service;
 import com.stockroute.designerservice.design.exception.DesignAlreadyExistsException;
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
+import com.stockroute.designerservice.design.rabbitmqConfig.Producer;
 import com.stockroute.designerservice.design.repository.DesignRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import java.util.Optional;
 public class DesignServiceImpl implements DesignService {
     private DesignRepository designRepository;
 
+    private Producer producer;
+
+
     @Autowired
     public DesignServiceImpl(DesignRepository designRepository) {
         this.designRepository = designRepository;
@@ -26,6 +30,7 @@ public class DesignServiceImpl implements DesignService {
         if (designRepository.findById(design.getDesignId()).isPresent()) {
             throw new DesignAlreadyExistsException();
         }
+        producer.sendMessageToRabbitmq(design);
         return designRepository.save(design);
     }
 
