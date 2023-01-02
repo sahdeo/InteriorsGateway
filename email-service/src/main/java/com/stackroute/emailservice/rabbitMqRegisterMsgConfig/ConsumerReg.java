@@ -16,8 +16,6 @@ import java.util.Map;
 
 @Component
 public class ConsumerReg {
-//        @Autowired
-//    private EmailController emailController;
     @Autowired
     private EmailSenderService emailSenderService;
 

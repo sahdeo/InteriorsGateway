@@ -42,7 +42,6 @@ public class UserServiceImp implements IUserService {
         return userDao.save(user);
     }
 
-
     @Override
     public User findByUsername(String emailId) throws UserNotFoundException {
         Optional<User> optional = userDao.findById(emailId);

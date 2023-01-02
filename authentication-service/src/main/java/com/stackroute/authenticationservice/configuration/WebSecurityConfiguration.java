@@ -41,7 +41,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors();
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate", "/registerNewUser","/forgetPassword").permitAll()
+
+                .authorizeRequests().antMatchers("/auth/**","/swagger-ui/**","/forgetPassword","/v3/api-docs/**")
+                .permitAll()
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -52,6 +54,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
+//        @Override
+//        public void configure(WebSecurity web) throws Exception {
+//            web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**")
+//             .antMatchers("/swagger-resources/**")
+//                    .antMatchers("/swagger-ui/index.html")
+//                    .antMatchers("/public");
+//        }
 
 //    @Override
 //    public void configure(WebSecurity web) throws Exception {

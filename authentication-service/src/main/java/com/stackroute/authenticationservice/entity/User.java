@@ -26,7 +26,6 @@ public class User {
     private String userFirstName;
     @Column(name = "lastName")
     private String userLastName;
-    @Length( min = 8,message = "password must contain at least 8 characters")
     @Column(name = "password")
     private String userPassword;
     @Column(name = "contact_no")
