@@ -1,4 +1,4 @@
-package com.stackroute.customerservice.eurekaserver.controller;
+package com.stackroute.eurekaserver.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

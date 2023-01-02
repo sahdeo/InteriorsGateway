@@ -1,4 +1,4 @@
-package com.stackroute.customerservice.configserver;
+package com.stackroute.configserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

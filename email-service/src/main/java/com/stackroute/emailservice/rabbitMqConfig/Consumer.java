@@ -12,8 +12,7 @@ import rabbit.domain.EmailDto;
 
 @Component
 public class Consumer {
-    //    @Autowired
-//    private EmailController emailController;
+
     @Autowired
     private EmailServiceJavaApi emailServiceJavaApi;
     @RabbitListener(queues="forget-queue")

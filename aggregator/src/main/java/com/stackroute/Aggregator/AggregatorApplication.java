@@ -1,4 +1,4 @@
-package com.stackroute.customerservice.Aggregator;
+package com.stackroute.Aggregator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
