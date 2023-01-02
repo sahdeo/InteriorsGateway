@@ -61,7 +61,7 @@ public class UserServiceImpl implements IUserService {
         }
         user = userrepo.save(user);
         UserDetails desired = userUtil.toUserDetails(user);
-       // producer.sendMessageToRabbitmq(user);
+        producer.sendMessageToRabbitmq(user);
         return desired;
     }
 
