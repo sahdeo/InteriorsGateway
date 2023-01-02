@@ -40,7 +40,11 @@ public class DesignerServiceTest {
     public void setup() {
         list = new ArrayList<>();
         designer = Designer.builder().designerId("101").emailId("Chinna@123").
+<<<<<<< HEAD
+                firstName("chinna").lastName("chinnu").startDate(LocalDateTime.parse("12-12-2023")).endDate("13-12-2023").status(true).build();
+=======
                 firstName("chinna").lastName("chinnu").startDate(LocalDateTime.now()).endDate("13-12-2023").status(true).build();
+>>>>>>> d9933658a6926668bc11c4c4d57169e6f3f51f22
 
     }
 

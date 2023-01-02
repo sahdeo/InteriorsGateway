@@ -1,4 +1,7 @@
 ################ Eureka Properties #########################
+spring:
+  application:
+    name: designer-service
 eureka:
 client:
 register-with-eureka: true

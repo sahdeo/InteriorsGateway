@@ -1,20 +1,12 @@
-client: ''
-defaultZone: http://localhost:8761/eureka
-eureka: ''
-fetch-registry: true
-hostname: localhost
-instance: ''
-register-with-eureka: true
 server:
     port: 8089
-service-url: ''
 spring:
     application:
-        name: EMAIL_SERVICE
+        name: email-service
     mail:
         default-encoding: UTF-8
         host: smtp.gmail.com
-        password: ytttxtfkdejifbid
+        password: irsrxukdsqnhstlz
         port: 587
         properties:
             mail:
@@ -24,10 +16,10 @@ spring:
                         trust: smtp.gmail.com
                     starttls:
                         enable: true
-                        required: 'true  '
+                        required: 'true'
         smtp:
             ssl:
-                trust: 'smtp.gmail.com  '
+                trust: 'smtp.gmail.com'
         test-connection: false
         username: interiors.gateway@gmail.com
 #   rabbitmq:
@@ -35,3 +27,15 @@ spring:
 #        port: 5672
 #        username: root
 #        password: root123
+
+
+################ Eureka Properties #########################
+eureka:
+client:
+register-with-eureka: true
+fetch-registry: true
+service-url:
+defaultZone: http://localhost:8761/eureka
+instance:
+    hostname: localhost
+

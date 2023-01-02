@@ -6,6 +6,7 @@ import com.stackroute.authenticationservice.entity.User;
 import com.stackroute.authenticationservice.rabbitmqConfig.Producer;
 import com.stackroute.authenticationservice.service.JwtServiceImp;
 import com.stackroute.authenticationservice.service.UserServiceImp;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,15 @@ import org.springframework.web.bind.annotation.*;
 import rabbitmq.domain.UserDto;
 
 @RestController
+@RequestMapping("/auth")
+@SecurityRequirement(name = "auth")
+
 public class UserController {
     @Autowired
     private UserServiceImp userServiceImp;
     @Autowired
     private JwtServiceImp jwtServiceImp;
-    @Autowired
-    private Producer producer;
+
 
     @PostMapping(value = "/registerNewUser")
     public ResponseEntity<User> registerNewUser(@RequestBody User user){
@@ -33,7 +36,6 @@ public class UserController {
         JwtRequest jwtRequest = new JwtRequest(user.getEmailId(), user.getUserPassword());
        // userServiceImp.registerNewUser(user);
         JwtResponse jwtResponse = jwtServiceImp.createJwtToken(jwtRequest);
-        producer.sendMessageToRabbitmq(jwtRequest);
         return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
 

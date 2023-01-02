@@ -4,36 +4,52 @@ eureka:
       defaultZone: http://localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
-    instance:
-      hostname: localhost
-
 server:
-  port: 8888
-
+  port: 8080
 spring:
-  application:
-    name: API_GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://localhost:8585
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service(?<segment>/?.*), $\{segment}
+        - id: authentication-service
+          uri: http://localhost:9090
+          predicates:
+            - Path=/authentication-service/**
+          filters:
+            - RewritePath=/authentication-service(?<segment>/?.*), $\{segment}
+        - id: customer-service
+          uri: http://localhost:8087
+          predicates:
+            - Path=/customer-service/**
+          filters:
+            - RewritePath=/customer-service(?<segment>/?.*), $\{segment}
+        - id: designer-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/designer-service/**
+          filters:
+            - RewritePath=/designer-service(?<segment>/?.*), $\{segment}
+        - id: email-service
+          uri: http://localhost:8089
+          predicates:
+            - Path=/email-service/**
+          filters:
+            - RewritePath=/email-service(?<segment>/?.*), $\{segment}
+        - id: order-service
+          uri: http://localhost:8088
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - RewritePath=/order-service(?<segment>/?.*), $\{segment}
+        - id: payment-service
+          uri: http://localhost:9097
+          predicates:
+            - Path=/payment-service/**
+          filters:
+            - RewritePath=/payment-service(?<segment>/?.*), $\{segment}
 
-cloud:
-  gateway:
-    routes:
-      - id: USER_SERVICE
-        uri: lb://USER_SERVICE
-        predicates:
-          - Path=/user/**
-          - - id: AUTHENTICATION_SERVICE
-              uri: lb://AUTHENTICATION_SERVICE
-              predicates:
-                - Path=/user/**
-                - id: CUSTOMER_SERVICE
-                  uri: lb://CUSTOMER_SERVICE
-                  predicates:
-                    - Path=/user/**
-                    - id: DESIGNER_SERVICE
-                      uri: lb://DESIGNER_SERVICE
-                      predicates:
-                        - Path=/api/v2/**
-                        - id: PAYMENT_SERVICE
-                          uri: lb://PAYMENT_SERVICE
-                          predicates:
-                            - Path=/payment/**
