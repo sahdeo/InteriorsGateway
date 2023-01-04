@@ -32,10 +32,4 @@ public class User {
     private String mobileNo;
     @Column(name = "user_role")
     private Roles role;
-
 }
-/**
- *  @Length( min = 8,message = "password must contain at least 8 characters")
- *     @Column(name = "confirmed_password")
- *     private String confirmPassword;
- */
