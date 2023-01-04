@@ -3,6 +3,7 @@ import com.stockroute.designerservice.design.exception.DesignAlreadyExistsExcept
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
 import com.stockroute.designerservice.design.repository.DesignRepository;
+import com.stockroute.designerservice.designer.model.Designer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class DesignServiceImpl implements DesignService {
     private DesignRepository designRepository;
+
 
     @Autowired
     public DesignServiceImpl(DesignRepository designRepository) {
@@ -85,6 +87,10 @@ public class DesignServiceImpl implements DesignService {
         }
         return designOptinal.get();
 
+    }
+    @Override
+    public List<Design> findDesignersByEmailId(String EmailId) {
+        return designRepository.findByDesignerEmailId(EmailId);
     }
 }
 

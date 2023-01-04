@@ -1,4 +1,5 @@
 package com.stackroute.customerservice.model;
+
 import lombok.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.Id;
@@ -13,12 +14,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Customer {
     @Id
     private String customerEmailId;
-            String firstName;
-            String lastName;
-            String city;
-            String state;
-            String pinCode;
-            String phoneNo;
-            Gender gender;
-            Address address;
+    private String firstName;
+    private String lastName;
+    private String mobileNo;
+    private Gender gender;
+    private String city;
+    private String state;
+    private String pinCode;
+    private String country;
 }

@@ -9,13 +9,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Objects;
 
-
+@Builder
 @NoArgsConstructor
 @Data
+@AllArgsConstructor
 @Document("user_registration")
 public class User {
-    @Id
-    private String id;
+    //@Id
+    //private String id;
 
 
     @Field(name="email_id")
@@ -52,28 +53,29 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getEmailId(), user.getEmailId()) && Objects.equals(getUserName(), user.getUserName()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getConfirmPassword(), user.getConfirmPassword()) && Objects.equals(getMobileNo(), user.getMobileNo()) && getRole() == user.getRole();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getEmailId(), getUserName(), getPassword(), getConfirmPassword(), getMobileNo(), getRole());
-    }
-
-    @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
-                ", emailId='" + emailId + '\'' +
+                "emailId='" + emailId + '\'' +
                 ", userName='" + userName + '\'' +
+                ", userFirstName='" + userFirstName + '\'' +
+                ", userLastName='" + userLastName + '\'' +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
                 ", mobileNo='" + mobileNo + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getEmailId(), user.getEmailId()) && Objects.equals(getUserName(), user.getUserName()) && Objects.equals(getUserFirstName(), user.getUserFirstName()) && Objects.equals(getUserLastName(), user.getUserLastName()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getConfirmPassword(), user.getConfirmPassword()) && Objects.equals(getMobileNo(), user.getMobileNo()) && getRole() == user.getRole();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmailId(), getUserName(), getUserFirstName(), getUserLastName(), getPassword(), getConfirmPassword(), getMobileNo(), getRole());
     }
 }

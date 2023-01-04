@@ -33,6 +33,8 @@
         <module>authentication-service</module>
         <module>payment-service</module>
         <module>order-service</module>
+        <module>feedback-service</module>
+
     </modules>
 
     <dependencies>
