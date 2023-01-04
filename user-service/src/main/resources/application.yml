@@ -1,27 +1,18 @@
+client: 'null'
+defaultZone: http://localhost:8761/eureka
+eureka: 'null'
+fetch-registry: true
+instance:
+    hostname: localhost
+register-with-eureka: true
 server:
     port: 8585
+service-url: 'null'
 spring:
+    application:
+        name: user-service
     data:
         mongodb:
             database: user_registration
     main:
         allow-circular-references: true
-
-    application:
-        name: user-service
-#    rabbitmq:
-#        host: localhost
-#        port: 5672
-#        username: root
-#        password: root123
-
-
-################ Eureka Properties #########################
-eureka:
-client:
-register-with-eureka: true
-fetch-registry: true
-service-url:
-defaultZone: http://localhost:8761/eureka
-instance:
-    hostname: localhost
