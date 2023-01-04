@@ -13,4 +13,5 @@ public interface DesignRepository extends MongoRepository<Design,String> {
     List<Design> findAllDesignFromCode(int designCode);
 
     List<Design> findByDesignId(String designId);
+    List<Design> findByDesignerEmailId(String designerEmailId);
 }

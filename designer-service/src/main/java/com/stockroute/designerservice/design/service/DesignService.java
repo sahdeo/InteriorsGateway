@@ -4,6 +4,7 @@ import com.stockroute.designerservice.design.exception.DesignAlreadyExistsExcept
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
 import com.stockroute.designerservice.design.repository.DesignRepository;
+import com.stockroute.designerservice.designer.model.Designer;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,5 +22,7 @@ public interface DesignService {
 
     Design updateDesign(Design design, String designId);
     Design findDesignByDesignId(String designId) throws DesignNotFoundException;
+
+    List<Design> findDesignersByEmailId(String EmailId);
 }
 
