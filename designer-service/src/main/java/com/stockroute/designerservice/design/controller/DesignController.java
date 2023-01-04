@@ -4,6 +4,7 @@ import com.stockroute.designerservice.design.exception.DesignAlreadyExistsExcept
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
 import com.stockroute.designerservice.design.service.DesignService;
+import com.stockroute.designerservice.designer.model.Designer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,12 @@ public class DesignController {
         }
         return responseEntity;
     }
+    @GetMapping("/findByEmailId/{EmailId}")
+    public ResponseEntity<List<Design>> getdesignerByEmailId(@PathVariable String EmailId) {
+        List<Design> designerListByEmail=designService.findDesignersByEmailId(EmailId);
+        return new ResponseEntity<>(designerListByEmail, HttpStatus.OK);
+    }
+
     @DeleteMapping("/design/{designId}")
     public ResponseEntity<?> deleteDesign(@PathVariable String designId) throws DesignNotFoundException {
         try {

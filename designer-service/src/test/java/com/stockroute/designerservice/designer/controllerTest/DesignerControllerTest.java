@@ -48,11 +48,12 @@ public class DesignerControllerTest {
     public  void setup(){
         designers=new ArrayList<>();
         designer = Designer.builder().designerId("101").emailId("Chinna@123").
-<<<<<<< HEAD
-                firstName("chinna").lastName("chinnu").startDate(LocalDateTime.parse("12-12-2023")).endDate("13-12-2023").status(true).build();
-=======
+
                 firstName("chinna").lastName("chinnu").startDate(LocalDateTime.now()).endDate("13-12-2023").status(true).build();
->>>>>>> d9933658a6926668bc11c4c4d57169e6f3f51f22
+
+
+
+
 
     }
 
@@ -81,7 +82,7 @@ public class DesignerControllerTest {
     @Test
     void getDesignerByEmailIdTest() throws Exception {
         Mockito.when(designerService.findDesignersByEmailId(Mockito.any())).thenReturn(designers);
-        mockMvc.perform(get("/api/v11/findByEmailId/Chinna@123"))
+        mockMvc.perform(get("/api/v11/findByEmailId/chinna@gmail.com"))
                 .andExpect(status().isOk());
     }
 }

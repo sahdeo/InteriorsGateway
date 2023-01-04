@@ -23,5 +23,4 @@ public class Designer {
     private LocalDateTime startDate;
     private String endDate;
     private boolean status;
-    private DesignDetails designDetails;
 }
