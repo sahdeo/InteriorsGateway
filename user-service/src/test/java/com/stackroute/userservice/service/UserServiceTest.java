@@ -76,10 +76,10 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenUserToDeleteShouldDeleteSuccess() throws UserNotFoundException {
+    public void givenUserToDeleteShouldDeleteSuccess() throws UserNotFoundException, InvalidArgumentException {
 
         when(userRepository.findByEmailId(user1.getEmailId())).thenReturn(Optional.ofNullable(user1));
-        boolean flag = userService.DeleteEmailId(user1.getEmailId());
+        boolean flag = userService.deleteUserByUsername(user1.getEmailId());
         assertTrue(flag);
         verify(userRepository, times(1)).findByEmailId(anyString());
         verify(userRepository, times(1)).deleteById(anyString());

@@ -3,6 +3,9 @@ package com.stackroute.userservice.controller;
 import com.stackroute.userservice.dto.AddUser;
 import com.stackroute.userservice.dto.UpdateEmailDto;
 import com.stackroute.userservice.dto.UserDetails;
+import com.stackroute.userservice.entity.User;
+import com.stackroute.userservice.exception.InvalidArgumentException;
+import com.stackroute.userservice.exception.UserNotFoundException;
 import com.stackroute.userservice.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,15 +31,15 @@ public class RegistrationController {
         return service.register(requestData);
     }
 
-    @GetMapping("/byName/{username}")
+    @GetMapping("/byname/{username}")
     public UserDetails findByUserName(@PathVariable String username) throws Exception {
         UserDetails response = service.findByUsername(username);
         return response;
     }
 
-    @GetMapping("/byEmail/{emailId}")
-    public UserDetails findByEmailId(@PathVariable String emailId) throws Exception {
-        UserDetails response = service.findByEmail(emailId);
+    @GetMapping("/byemail/{emailID}")
+    public User findByEmailId(@PathVariable String emailID) throws Exception {
+        User response = service.findByEmail(emailID);
         return response;
     }
 
@@ -52,9 +55,9 @@ public class RegistrationController {
         return response;
     }
 
-   @DeleteMapping("/removeUser/{emailID}")
-    public Boolean remove(@PathVariable String emailID){
-        return service.DeleteEmailId(emailID);
+   @DeleteMapping("/removeUser/{userName}")
+    public Boolean remove(@PathVariable String userName) throws UserNotFoundException, InvalidArgumentException {
+        return service.deleteUserByUsername(userName);
     }
 }
 

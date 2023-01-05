@@ -44,11 +44,6 @@ public class DesignerServiceImpl implements DesignerService{
         return designerRepository.findDesignerByEmailId(EmailId);
     }
 
-//    @Override
-//    public List<Designer> findDesignersById(String designerId) {
-//        return designerRepository.findByDesignerId(designerId);
-//    }
-
 
     @Override
     public Designer updateDesigner(Designer designer) {
@@ -59,8 +54,10 @@ public class DesignerServiceImpl implements DesignerService{
     public Boolean  deleteDesignerByDesignerId(String designerId) throws IdNotFound {
         Designer designer=findDesignerByDesignerId(designerId);
         if(designer.getDesignerId().isBlank()){
+
             throw  new IdNotFound("designer Id is not found");
         }
+        designerRepository.deleteById(designerId);
         return true;
     }
 

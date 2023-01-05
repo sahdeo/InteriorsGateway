@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MessageConfig {
 
-    public static final String QUEUE_REG="register-queue";
+    public static final String QUEUE="user-queue";
     public static final String EXCHANGE="user-exchange";
-    public static final String ROUTING_KEY_REG="register-routing";
+    public static final String ROUTING_KEY="user-routing";
     @Bean
     public Queue queue(){
-        return new Queue(QUEUE_REG,false);
+        return new Queue(QUEUE,false);
     }
     @Bean
     public DirectExchange exchange(){
@@ -23,10 +23,7 @@ public class MessageConfig {
     }
     @Bean
     public Binding userBinding(Queue queue, DirectExchange exchange){
-        return BindingBuilder
-                .bind(queue())
-                .to(exchange)
-                .with(ROUTING_KEY_REG);
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
     }
 
     @Bean
