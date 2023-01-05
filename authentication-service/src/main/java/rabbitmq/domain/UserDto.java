@@ -22,8 +22,6 @@ public class UserDto {
 
     private String userPassword;
 
-    // private String confirmPassword;
-
     private String mobileNo;
 
     private Roles role;
