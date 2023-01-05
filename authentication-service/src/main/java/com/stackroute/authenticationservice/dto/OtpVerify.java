@@ -1,15 +1,14 @@
-package rabbitmq.domain;
+package com.stackroute.authenticationservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.security.PrivateKey;
-import java.util.PrimitiveIterator;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailDto {
+public class OtpVerify {
     private String emailId;
     private Integer otp;
+    private String newPassword;
 }

@@ -1,5 +1,6 @@
 package com.stackroute.orderservice.controller;
 
+import com.stackroute.orderservice.exception.NoItemsExistsException;
 import com.stackroute.orderservice.exception.OrderNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,8 +13,11 @@ import javax.validation.ConstraintViolationException;
 @RestControllerAdvice
 public class CentralizedExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(OrderNotFoundException.class)
-    public String handleProductNotFound(OrderNotFoundException e){
+    @ExceptionHandler({
+            OrderNotFoundException.class,
+            NoItemsExistsException.class
+    })
+    public String handleProductNotFound(Exception e){
         return e.getMessage();
     }
 

@@ -8,11 +8,14 @@ import com.stackroute.orderservice.repository.OrderRepository;
 import com.stackroute.orderservice.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class OrderServiceImpl implements OrderService{
 
     private OrderRepository repository;
@@ -26,9 +29,19 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public OrderDetails createOrder(CreateOrderDTO requestData){
         Order order=new Order();
-        order=orderUtil.fromRequestDataToOrder(requestData);
-        OrderDetails orderDetails=orderUtil.toOrderDetails(order);
+        order.setOrderId(requestData.getOrderId());
+        order.setOrderDated(LocalDateTime.now());
+        order.setCustomerEmailId(requestData.getCustomerEmailId());
+        order.setCustomerName(requestData.getCustomerName());
+        order.setDesignId(requestData.getDesignId());
+        order.setDesignName(requestData.getDesignName());
+        order.setDesignPrice(requestData.getDesignPrice());
+        order.setShippingDetails(requestData.getShippingDetails());
+        order.setDiscount(requestData.getDiscount());
+        order.setTotalAmount(requestData.getTotalAmount());
+
         repository.save(order);
+        OrderDetails orderDetails=orderUtil.toOrderDetails(order);
         return orderDetails;
     }
 
