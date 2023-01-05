@@ -9,7 +9,7 @@ server:
 spring:
   cloud:
     gateway:
-      routes[0]:
+      routes:
         - id: user-service
           uri: http://localhost:8085
           predicates:
