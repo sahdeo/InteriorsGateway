@@ -7,6 +7,7 @@ public class UpdateEmailDto {
 
     private String username;
 
+
     private String newEmail;
 
 

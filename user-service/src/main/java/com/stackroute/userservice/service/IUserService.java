@@ -3,6 +3,7 @@ package com.stackroute.userservice.service;
 import com.stackroute.userservice.dto.AddUser;
 import com.stackroute.userservice.dto.UpdateEmailDto;
 import com.stackroute.userservice.dto.UserDetails;
+import com.stackroute.userservice.entity.User;
 import com.stackroute.userservice.exception.*;
 import org.springframework.validation.annotation.Validated;
 
@@ -15,11 +16,11 @@ public interface IUserService {
 
     UserDetails findByUsername(String username) throws InvalidArgumentException,  UserNotFoundException;
 
-    UserDetails findByEmail(String email) throws InvalidArgumentException,UserNotFoundException;
+    User findByEmail(String email) throws InvalidArgumentException,UserNotFoundException;
 
-    UserDetails updateEmail(@Valid UpdateEmailDto requestData) throws UserNotFoundException;
+    UserDetails updateEmail(@Valid UpdateEmailDto requestData) throws UserNotFoundException, InvalidArgumentException;
     
     List<UserDetails> fetchAll();
 
-   Boolean DeleteEmailId(String emailID);
+   boolean deleteUserByUsername(String username) throws UserNotFoundException, InvalidArgumentException;
 }

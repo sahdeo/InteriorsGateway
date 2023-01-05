@@ -54,8 +54,8 @@ public class UsertestController {
     @BeforeEach
     public void setUp(){
 
-        user1 = new AddUser("Ravi1","Ravi@gmail.com","Ravi","Gelda","Ravi@123","Ravi@123","7879644891",Role.CUSTOMER);
-        UserDetails userDetails1 = new UserDetails("Ravi@gmail.com","Ravi1","Ravi","Gelda","Ravi@123","Ravi@123","7879644891",Role.CUSTOMER);
+        user1 = new AddUser("Nirali","Nirali@gmail.com","Nirali","Gelda","Ravi@123","Ravi@123","7879644891",Role.CUSTOMER);
+        UserDetails userDetails1 = new UserDetails("Nirali@gmail.com","Nirali","Nirali","Gelda","Ravi@123","Ravi@123","7879644891",Role.CUSTOMER);
 
         /*user1 = new AddUser("Ritika_14","Ritika@gmail.com","Ritika","Tiwari","Ritika@123","Ritika@123","7879644891",Role.CUSTOMER);
         UserDetails userDetails1 = new UserDetails("ritika@gmil.com","Ritika_14","Ritika","Tiwari","Ritika@123","Ritika@123","7879644891",Role.CUSTOMER);
@@ -104,11 +104,11 @@ public class UsertestController {
     @Test
     public void giveEmailDeleteUser() throws Exception {
 
-        Mockito.when(userService.DeleteEmailId(anyString())).thenReturn(true);
+        Mockito.when(userService.deleteUserByUsername(anyString())).thenReturn(true);
         mockMvc.perform(delete("/user/removeUser/Ravi@gmail.com")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
-        verify(userService, times(1)).DeleteEmailId(anyString());
+        verify(userService, times(1)).deleteUserByUsername(anyString());
     }
 
 

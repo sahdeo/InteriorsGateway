@@ -32,10 +32,9 @@ public class UserServiceImpl implements IUserService {
     private UserUtil userUtil;
 
     @Autowired
-    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil, Producer producer) {
+    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil) {
         this.userrepo = userrepo;
         this.userUtil = userUtil;
-        this.producer=producer;
     }
 
     private Random random = new Random();
@@ -62,21 +61,11 @@ public class UserServiceImpl implements IUserService {
             throw new EmailAlreadyExists("Email Id already Exists !!");
         }
         user = userrepo.save(user);
-        UserDto userDto = new UserDto();
-        userDto.setEmailId(user.getEmailId());
-        userDto.setUserFirstName(user.getUserFirstName());
-        userDto.setUserLastName(user.getUserLastName());
-        //userDto.setUserPassword(requestData.getPassword());
-        userDto.setUserPassword(passwordEncoder.encode(requestData.getPassword()));
-        userDto.setMobileNo(user.getMobileNo());
-        userDto.setRole(user.getRole());
-
-        producer.sendMessageToRabbitmq(userDto);
-
+//       producer.sendMessageToRabbitmq(user);
         UserDetails desired = userUtil.toUserDetails(user);
-
         return desired;
     }
+
 
     @Override
     public UserDetails findByUsername(String username) throws UserNotFoundException {
@@ -89,22 +78,23 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDetails findByEmail(String email) throws InvalidArgumentException, UserNotFoundException {
+    public User findByEmail(String email) throws InvalidArgumentException, UserNotFoundException {
         Optional<User> optional = userrepo.findByEmailId(email);
         if (optional.isEmpty()) {
             throw new UserNotFoundException("User not found by emailId= " + email);
         }
-        return userUtil.toUserDetails(optional.get());
+        return optional.get();
     }
 
     @Override
-    public UserDetails updateEmail(UpdateEmailDto requestData) throws UserNotFoundException {
+    public UserDetails updateEmail(UpdateEmailDto requestData) throws UserNotFoundException, InvalidArgumentException {
         User user = findByusername(requestData.getUsername().trim());
-        user.setEmailId(requestData.getNewEmail());
+        user.setEmailId(requestData.getNewEmail().trim());
         user = userrepo.save(user);
         UserDetails desired = userUtil.toUserDetails(user);
         return desired;
     }
+
 
 
     public User findByusername(String username) throws UserNotFoundException {
@@ -117,13 +107,17 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
-    public Boolean DeleteEmailId(String email) {
-        if (userrepo.findByEmailId(email).isEmpty()) {
+    public boolean deleteUserByUsername(String username) throws UserNotFoundException, InvalidArgumentException {
+        if (userrepo.findByUserName(username).isEmpty()) {
             return false;
         }
-        userrepo.deleteById(email);
+        userrepo.deleteById(username);
         return true;
     }
+
+
+
+
 
     public void passwordValidator(String password, String confirmPassword) throws PasswordDoesNotMatchException {
         if (!password.equals(confirmPassword)) {
