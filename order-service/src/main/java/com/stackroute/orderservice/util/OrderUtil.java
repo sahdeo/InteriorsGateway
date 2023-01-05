@@ -3,11 +3,12 @@ package com.stackroute.orderservice.util;
 import com.stackroute.orderservice.dto.CreateOrderDTO;
 import com.stackroute.orderservice.dto.OrderDetails;
 import com.stackroute.orderservice.model.Order;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Component
 public class OrderUtil {
 
     public OrderDetails toOrderDetails(Order order){
