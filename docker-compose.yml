@@ -35,5 +35,55 @@ services:
       - MYSQL_ROOT_PASSWORD=root123
       - MYSQL_DATABASE=jwt_auth_IG
       - MYSQL_PASSWORD=root123
+  mongodb-service:
+    image: mongo:latest
+    container_name: "mongodb-service"
+    restart: always
+    hostname: localhost
+    ports:
+      - 27017:27017
 
-  
+  user-service:
+    build: user-service/
+    container_name: user-service
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8085:8085
+
+  email-service:
+    build: email-service/
+    container_name: email-service
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8084:8084
+
+  authentication-service:
+    build: authentication-service/
+    container_name: authentication-service
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8081:8081
+
+  customer-service:
+    build: customer-service/
+    container_name: customer-service
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8082:8082
+
+  designer-service:
+    build: designer-service/
+    container_name: designer-service
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8083:8083
