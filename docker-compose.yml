@@ -87,3 +87,24 @@ services:
     hostname: localhost
     ports:
       - 8083:8083
+
+  prometheus:
+    container_name: prom
+    image: prom/prometheus
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+
+  grafana:
+    container_name: graf
+    image: grafana/grafana
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 3000:3000
