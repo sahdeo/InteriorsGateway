@@ -15,7 +15,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("orders")
+@RequestMapping("/orderService")
 public class OrderController {
 
     private OrderService orderService;

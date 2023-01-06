@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/feedback/api/v1")
+@RequestMapping("/feedbackService")
 @RestController
 public class FeedbackController {
     @Autowired

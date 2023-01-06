@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-<<<<<<< HEAD
-=======
 
->>>>>>> 9f43c295a1618f9428362551502edd43dcfda79a
 @Component
 public class OrderUtil {
 
