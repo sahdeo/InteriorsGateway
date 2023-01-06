@@ -1,7 +1,9 @@
 package com.stockroute.designerservice.design.service;
+import com.stockroute.designerservice.design.dto.UpdateDesign;
 import com.stockroute.designerservice.design.exception.DesignAlreadyExistsException;
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
+import com.stockroute.designerservice.design.model.DesignDetails;
 import com.stockroute.designerservice.design.repository.DesignRepository;
 import com.stockroute.designerservice.designer.model.Designer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,13 +68,48 @@ public class DesignServiceImpl implements DesignService {
     }
 
     @Override
-    public Design updateDesign(Design design, String designId) {
-        if (designRepository.findById(designId).isEmpty()) {
+    public Design updateDesign(UpdateDesign updateDesign, String designId) {
+        Optional <Design> optionalDesign=designRepository.findById(designId);
+        if ( optionalDesign.isEmpty()){
             return null;
         }
+        Design designFound=optionalDesign.get();
+        Design design=new Design();
+        design.setDesignId(designId);
+        if(updateDesign.getDesignName().equals("string"))
+            design.setDesignName(designFound.getDesignName());
+        else design.setDesignName(updateDesign.getDesignName());
+        if(updateDesign.getRatings().equals("string"))
+            design.setRatings(designFound.getRatings());
+        else design.setRatings(updateDesign.getRatings());
+        if(updateDesign.getColor().equals("string"))
+            design.setColor(designFound.getColor());
+        else design.setColor(updateDesign.getColor());
+        if(updateDesign.getSize()==0)
+            design.setSize(designFound.getSize());
+        else design.setSize(updateDesign.getSize());
+        if(updateDesign.getDesignerEmailId().equals("string"))
+            design.setDesignerEmailId(designFound.getDesignerEmailId());
+        else design.setDesignerEmailId(updateDesign.getDesignerEmailId());
+
+        DesignDetails designDetails=new DesignDetails();
+        DesignDetails updateDesignDetails=updateDesign.getDesignDetails();
+
+        if(updateDesignDetails.getDesignModel().equals("string"))
+            designDetails.setDesignModel(designFound.getDesignDetails().getDesignModel());
+        else designDetails.setDesignModel(updateDesignDetails.getDesignModel());
+        if(updateDesignDetails.getDesignCode()==0)
+            designDetails.setDesignCode(designFound.getDesignDetails().getDesignCode());
+        else designDetails.setDesignCode(updateDesignDetails.getDesignCode());
+        if(updateDesignDetails.getDesignPrice()==0)
+            designDetails.setDesignPrice(designFound.getDesignDetails().getDesignPrice());
+        else designDetails.setDesignPrice(updateDesignDetails.getDesignPrice());
+
+        design.setDesignDetails(designDetails);
+
+
         return designRepository.save(design);
     }
-
     @Override
     public List<Design> getDesignDetails() throws Exception {
         return designRepository.findAll();

@@ -16,6 +16,15 @@ management:
       show:
         details: always
 
+<<<<<<< HEAD
+metrics:
+  enabled: true
+  export:
+    prometheus:
+      enabled: true
+prometheus:
+  enabled: true
+=======
     metrics:
       enabled: true
       export:
@@ -24,6 +33,7 @@ management:
     prometheus:
       enabled: true
 
+>>>>>>> 9f43c295a1618f9428362551502edd43dcfda79a
 spring:
   application:
     name: api-gateway

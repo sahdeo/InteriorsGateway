@@ -1,5 +1,6 @@
 package com.stockroute.designerservice.design.service;
 
+import com.stockroute.designerservice.design.dto.UpdateDesign;
 import com.stockroute.designerservice.design.exception.DesignAlreadyExistsException;
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
@@ -20,7 +21,7 @@ public interface DesignService {
 
     List<Design> getAllDesign(int design) throws DesignNotFoundException;
 
-    Design updateDesign(Design design, String designId);
+    Design updateDesign(UpdateDesign updateDesign, String designId);
     Design findDesignByDesignId(String designId) throws DesignNotFoundException;
 
     List<Design> findDesignersByEmailId(String EmailId);
