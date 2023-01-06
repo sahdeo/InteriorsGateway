@@ -11,5 +11,6 @@ public interface DesignerRepository extends MongoRepository<Designer,String> {
     List<Designer> findDesignerByEmailId(String EmailId);
 
     List<Designer> deleteDesignerByEmailId(String designerId);
+
 }
 

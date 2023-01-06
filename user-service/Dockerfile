@@ -1,5 +1,4 @@
 FROM openjdk:11
-COPY target/user-service-*.jar  /demo.jar
-#EXPOSE 9090
-# Run the web service on container startup.
-CMD java -jar /demo.jar
+ADD ./target/user-service-0.0.1-SNAPSHOT.jar /usr/src/user-service-0.0.1-SNAPSHOT.jar
+WORKDIR usr/src
+ENTRYPOINT ["java","-jar", "user-service-0.0.1-SNAPSHOT.jar"]
