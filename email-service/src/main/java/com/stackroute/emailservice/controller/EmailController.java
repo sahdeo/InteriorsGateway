@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/IG")
+@RequestMapping("/emailService")
 public class EmailController {
         @Autowired
         private EmailSenderService senderService;

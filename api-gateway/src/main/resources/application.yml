@@ -16,7 +16,6 @@ management:
       show:
         details: always
 
-
     metrics:
       enabled: true
       export:
