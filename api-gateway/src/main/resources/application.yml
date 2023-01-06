@@ -15,6 +15,7 @@ management:
     health:
       show:
         details: always
+
     metrics:
       enabled: true
       export:
@@ -22,7 +23,6 @@ management:
           enabled: true
     prometheus:
       enabled: true
-
 
 spring:
   application:

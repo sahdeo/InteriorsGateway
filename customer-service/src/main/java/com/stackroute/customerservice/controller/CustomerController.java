@@ -3,6 +3,7 @@ package com.stackroute.customerservice.controller;
 
 import com.stackroute.customerservice.dto.AddCustomer;
 import com.stackroute.customerservice.dto.CustomerDetails;
+import com.stackroute.customerservice.dto.UpdateCustomer;
 import com.stackroute.customerservice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class CustomerController {
     }
 
     @PutMapping("/updateUser/")
-    public ResponseEntity<CustomerDetails> updateUser(@RequestBody AddCustomer customer, @RequestParam String customerEmailId) throws Exception{
+    public ResponseEntity<CustomerDetails> updateUser(@RequestBody UpdateCustomer customer, @RequestParam String customerEmailId) throws Exception{
         CustomerDetails details=customerServiceImpl.updateUser(customer,customerEmailId);
         return new ResponseEntity<>(details,HttpStatus.OK);
     }

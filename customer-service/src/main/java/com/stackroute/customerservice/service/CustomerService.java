@@ -3,6 +3,7 @@ package com.stackroute.customerservice.service;
 
 import com.stackroute.customerservice.dto.AddCustomer;
 import com.stackroute.customerservice.dto.CustomerDetails;
+import com.stackroute.customerservice.dto.UpdateCustomer;
 import com.stackroute.customerservice.exception.CustomerNotFoundException;
 import com.stackroute.customerservice.exception.MobileNoNotValidException;
 import com.stackroute.customerservice.model.Customer;
@@ -20,7 +21,7 @@ public interface CustomerService {
 
     public CustomerDetails getByEmailId(String customerEmailId) throws CustomerNotFoundException;
 
-    public CustomerDetails updateUser(@Valid AddCustomer updateData, String emailId) throws CustomerNotFoundException;
+    public CustomerDetails updateUser(@Valid UpdateCustomer updateData, String emailId) throws CustomerNotFoundException;
 
     public String deleteUser(String customerEmailId) throws CustomerNotFoundException;
 

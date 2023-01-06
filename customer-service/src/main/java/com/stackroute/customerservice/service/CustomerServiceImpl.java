@@ -3,6 +3,7 @@ package com.stackroute.customerservice.service;
 
 import com.stackroute.customerservice.dto.AddCustomer;
 import com.stackroute.customerservice.dto.CustomerDetails;
+import com.stackroute.customerservice.dto.UpdateCustomer;
 import com.stackroute.customerservice.exception.CustomerNotFoundException;
 import com.stackroute.customerservice.exception.MobileNoNotValidException;
 import com.stackroute.customerservice.repository.CustomerRepository;
@@ -54,18 +55,36 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDetails updateUser(AddCustomer updateData, String customerEmailId) throws CustomerNotFoundException{
+    public CustomerDetails updateUser(UpdateCustomer updateData, String customerEmailId) throws CustomerNotFoundException{
         Optional<Customer> found = customerRepository.findByCustomerEmailId(customerEmailId);
+        Customer customerFound= found.get();
         Customer customer=new Customer();
-        customer.setCustomerEmailId(updateData.getCustomerEmailId());
-        customer.setFirstName(updateData.getFirstName());
-        customer.setLastName(updateData.getLastName());
-        customer.setMobileNo(updateData.getMobileNo());
-        customer.setGender(updateData.getGender());
-        customer.setCity(updateData.getCity());
-        customer.setState(updateData.getState());
-        customer.setPinCode(updateData.getPinCode());
-        customer.setCountry(updateData.getCountry());
+
+        customer.setCustomerEmailId(customerEmailId);
+        if(updateData.getFirstName().equals("string"))
+            customer.setFirstName(customerFound.getFirstName());
+        else customer.setFirstName(updateData.getFirstName());
+        if(updateData.getLastName().equals("string"))
+            customer.setLastName(customerFound.getLastName());
+        else customer.setLastName(updateData.getLastName());
+        if(updateData.getMobileNo().equals("string"))
+            customer.setMobileNo(customerFound.getMobileNo());
+        else customer.setMobileNo(updateData.getMobileNo());
+        if(updateData.getGender().equals("string"))
+            customer.setGender(customerFound.getGender());
+        else customer.setGender(updateData.getGender());
+        if(updateData.getCity().equals("string"))
+            customer.setCity(customerFound.getCity());
+        else customer.setCity(updateData.getCity());
+        if(updateData.getState().equals("string"))
+            customer.setState(customerFound.getState());
+        else customer.setState(updateData.getState());
+        if(updateData.getPinCode().equals("string"))
+            customer.setPinCode(customerFound.getPinCode());
+        else customer.setPinCode(updateData.getPinCode());
+        if(updateData.getCountry().equals("string"))
+            customer.setCountry(customerFound.getCountry());
+        else customer.setCountry(updateData.getCountry());
         if(found.isPresent()){
             customerRepository.save(customer);
         }else {

@@ -31,23 +31,4 @@ public class Order {
     String designId;
     String designName;
     Double designPrice;
-
-
-    /*            “customerId”: “String”,
-            “customerName”: “String”,
-            “customerEmailId”: “String”,
-            “designId”: “String”,
-            “designName”: “String”,
-            “shippingDetails”: “entity”,
-            “orderId”: “String”,
-            “orderDated”: “String”,
-            “productId”: “String”,
-            “productName”: “String”,
-            “productQuantity”: “Double”,
-            “listPrice”: “Double”,
-            “discount”: “Double”,
-            “sellingPrice”: “Double”,
-            “deliveryFee”: “Double”,
-            “deliveryDiscount”: “Double”,
-            “totalAmount”: “Double”*/
 }

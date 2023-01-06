@@ -121,12 +121,12 @@
 			<artifactId>micrometer-registry-prometheus</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.stockroute</groupId>
             <artifactId>designer-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency>-->
 
 
 		<dependency>
