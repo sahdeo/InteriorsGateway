@@ -45,51 +45,36 @@ spring:
         - id: user-service
           uri: http://localhost:8085/
           predicates:
-            - Path=/user-service/**
-          filters:
-            - RewritePath=/user-service(?<segment>/?.*), $\{segment}
+            - Path=/userService/**
         - id: authentication-service
           uri: http://localhost:8081
           predicates:
-            - Path=/authentication-service/**
-          filters:
-            - RewritePath=/authentication-service(?<segment>/?.*), $\{segment}
+            - Path=/authenticationService/**
         - id: customer-service
           uri: http://localhost:8082/
           predicates:
-            - Path=/customer-service/**
-          filters:
-            - RewritePath=/customer-service(?<segment>/?.*), $\{segment}
+            - Path=/customerService/**
         - id: designer-service
           uri: http://localhost:8083/
           predicates:
-            - Path=/designer-service/**
-          filters:
-            - RewritePath=/designer-service(?<segment>/?.*), $\{segment}
+            - Path=/designerService/**
         - id: email-service
           uri: http://localhost:8084/
           predicates:
-            - Path=/email-service/**
-          filters:
-            - RewritePath=/email-service(?<segment>/?.*), $\{segment}
+            - Path=/emailService/**
         - id: order-service
           uri: http://localhost:8087/
           predicates:
-            - Path=/order-service/**
-          filters:
-            - RewritePath=/order-service(?<segment>/?.*), $\{segment}
+            - Path=/orderService/**
         - id: payment-service
           uri: http://localhost:9097/
           predicates:
-            - Path=/payment-service/**
-          filters:
-            - RewritePath=/payment-service(?<segment>/?.*), $\{segment}
+            - Path=/paymentService/**
         - id: feedback-service
           uri: http://localhost:8086/
           predicates:
-            - Path=/feedback-service/**
-          filters:
-            - RewritePath=/feedback-service(?<segment>/?.*), $\{segment}
+            - Path=/feedbackService/**
+
 
 
 
