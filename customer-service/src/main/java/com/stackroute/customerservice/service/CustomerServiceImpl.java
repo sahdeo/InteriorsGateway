@@ -1,53 +1,101 @@
 package com.stackroute.customerservice.service;
 
 
-import com.stackroute.customerservice.Dao.CustomerRepository;
+import com.stackroute.customerservice.dto.AddCustomer;
+import com.stackroute.customerservice.dto.CustomerDetails;
+import com.stackroute.customerservice.exception.CustomerNotFoundException;
+import com.stackroute.customerservice.exception.MobileNoNotValidException;
+import com.stackroute.customerservice.repository.CustomerRepository;
 import com.stackroute.customerservice.model.Customer;
+import com.stackroute.customerservice.util.CustomerDetail;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
 
     private  CustomerRepository customerRepository;
+    private CustomerDetail detail;
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository){
+    public CustomerServiceImpl(CustomerRepository customerRepository,CustomerDetail detail){
     this.customerRepository=customerRepository;
-}
+    this.detail=detail;
+    }
     @Override
-    public void createUser(Customer customer) {
-        customerRepository.save(customer);
+    public CustomerDetails createUser(AddCustomer requestData) throws MobileNoNotValidException{
+
+        contactNumberValidator(requestData.getMobileNo());
+
+        Customer customer=new Customer();
+        customer.setCustomerEmailId(requestData.getCustomerEmailId());
+        customer.setFirstName(requestData.getFirstName());
+        customer.setLastName(requestData.getLastName());
+        customer.setMobileNo(requestData.getMobileNo());
+        customer.setGender(requestData.getGender());
+        customer.setCity(requestData.getCity());
+        customer.setState(requestData.getState());
+        customer.setPinCode(requestData.getPinCode());
+        customer.setCountry(requestData.getCountry());
+        customer=customerRepository.save(customer);
+        return detail.toCustomerDetails(customer);
     }
 
     @Override
-    public Customer getByEmailId(String customerEmailId) {
-        return customerRepository.findById(customerEmailId).get();
-    }
-
-    @Override
-    public Customer updateUser(Customer customer, String customerEmailId) {
-        Optional<Customer> optionalUser = customerRepository.findById(customerEmailId);
-        if(optionalUser.isPresent()){
-            customerRepository.save(customer);
+    public CustomerDetails getByEmailId(String customerEmailId) throws CustomerNotFoundException{
+        Optional<Customer> optionalCustomer=customerRepository.findByCustomerEmailId(customerEmailId);
+        if (optionalCustomer.isEmpty()) {
+            throw new CustomerNotFoundException("Customer not found by emailId= " + customerEmailId);
         }
-        return customer;
+        return detail.toCustomerDetails(optionalCustomer.get());
     }
 
     @Override
-    public String deleteUser(String customerEmailId) {
+    public CustomerDetails updateUser(AddCustomer updateData, String customerEmailId) throws CustomerNotFoundException{
+        Optional<Customer> found = customerRepository.findByCustomerEmailId(customerEmailId);
+        Customer customer=new Customer();
+        customer.setCustomerEmailId(updateData.getCustomerEmailId());
+        customer.setFirstName(updateData.getFirstName());
+        customer.setLastName(updateData.getLastName());
+        customer.setMobileNo(updateData.getMobileNo());
+        customer.setGender(updateData.getGender());
+        customer.setCity(updateData.getCity());
+        customer.setState(updateData.getState());
+        customer.setPinCode(updateData.getPinCode());
+        customer.setCountry(updateData.getCountry());
+        if(found.isPresent()){
+            customerRepository.save(customer);
+        }else {
+            throw new CustomerNotFoundException("Customer not found by emailId= "+ customerEmailId);
+        }
+        return detail.toCustomerDetails(customer);
+    }
+
+    @Override
+    public String deleteUser(String customerEmailId) throws CustomerNotFoundException{
+        getByEmailId(customerEmailId);
         customerRepository.deleteById(customerEmailId);
         return "Customer Deleted Successfully";
     }
 
     @Override
-    public List<Customer> getAllUser() {
-        List<Customer> userList;
-        userList = customerRepository.findAll();
-        return userList;
+    public List<CustomerDetails> fetchAll() {
+        List<Customer> customers = customerRepository.findAll();
+        List<CustomerDetails> desired = detail.toUserDetailsList(customers);
+        return desired;
+
+    }
+
+    public void contactNumberValidator(String mobileNo) throws MobileNoNotValidException {
+        if (mobileNo.length() != 10) {
+            throw new MobileNoNotValidException("Mobile number is less that 10 digits Please enter valid mobile number");
+        } else {
+            return;
+        }
+
     }
 
 }

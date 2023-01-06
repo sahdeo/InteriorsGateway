@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MessageConfig {
-
     public static final String QUEUE_REG="register-queue";
     public static final String EXCHANGE="user-exchange";
     public static final String ROUTING_KEY_REG="register-routing";

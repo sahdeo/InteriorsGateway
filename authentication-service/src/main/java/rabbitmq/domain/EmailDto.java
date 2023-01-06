@@ -11,5 +11,5 @@ import java.util.PrimitiveIterator;
 @NoArgsConstructor
 public class EmailDto {
     private String emailId;
-    private int otp;
+    private Integer otp;
 }

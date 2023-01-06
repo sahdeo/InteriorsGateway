@@ -1,7 +1,5 @@
 package com.stackroute.userservice.rabbitmqConfig;
 
-import com.stackroute.userservice.dto.UserDetails;
-import com.stackroute.userservice.entity.User;
 import domain.UserDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package com.stockroute.designerservice.designer.service;
-import com.stockroute.designerservice.design.exception.DesignNotFoundException;
-import com.stockroute.designerservice.design.model.Design;
+
 import com.stockroute.designerservice.design.repository.DesignRepository;
 import com.stockroute.designerservice.designer.exception.IdNotFound;
 import com.stockroute.designerservice.designer.exception.ProfileAlreadyExit;
@@ -8,9 +7,7 @@ import com.stockroute.designerservice.designer.model.Designer;
 import com.stockroute.designerservice.designer.repository.DesignerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -44,11 +41,6 @@ public class DesignerServiceImpl implements DesignerService{
         return designerRepository.findDesignerByEmailId(EmailId);
     }
 
-//    @Override
-//    public List<Designer> findDesignersById(String designerId) {
-//        return designerRepository.findByDesignerId(designerId);
-//    }
-
 
     @Override
     public Designer updateDesigner(Designer designer) {
@@ -59,8 +51,10 @@ public class DesignerServiceImpl implements DesignerService{
     public Boolean  deleteDesignerByDesignerId(String designerId) throws IdNotFound {
         Designer designer=findDesignerByDesignerId(designerId);
         if(designer.getDesignerId().isBlank()){
+
             throw  new IdNotFound("designer Id is not found");
         }
+        designerRepository.deleteById(designerId);
         return true;
     }
 

@@ -19,5 +19,6 @@ public class Design {
     private double size;
     @Schema(hidden=true)
    private byte[] image;
+    private String designerEmailId;
     private DesignDetails designDetails;
 }

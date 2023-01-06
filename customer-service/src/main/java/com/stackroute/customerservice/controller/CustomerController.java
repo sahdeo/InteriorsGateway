@@ -1,40 +1,51 @@
 package com.stackroute.customerservice.controller;
 
 
-import com.stackroute.customerservice.model.Customer;
-import com.stackroute.customerservice.service.CustomerServiceImpl;
+import com.stackroute.customerservice.dto.AddCustomer;
+import com.stackroute.customerservice.dto.CustomerDetails;
+import com.stackroute.customerservice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/demo/user")
+@RequestMapping("v1/demo/customer")
 public class CustomerController {
 
+    private CustomerService customerServiceImpl;
+
     @Autowired
-    private CustomerServiceImpl customerServiceImpl;
+    public CustomerController(CustomerService customerService){
+        this.customerServiceImpl=customerService;
+    }
     @PostMapping("/createUser")
-    public void createUser(@RequestBody Customer customer){
-    customerServiceImpl.createUser(customer);
+    public ResponseEntity<CustomerDetails> createUser(@RequestBody AddCustomer customer) throws Exception{
+        CustomerDetails details=customerServiceImpl.createUser(customer);
+    return new ResponseEntity<>(details, HttpStatus.CREATED);
     }
     @GetMapping("/getUserByEmail/")
-    public Customer getUserByEmail(@RequestParam String customerEmailId){
-        return customerServiceImpl.getByEmailId(customerEmailId);
+    public ResponseEntity<CustomerDetails> getUserByEmail(@RequestParam String customerEmailId) throws Exception{
+        CustomerDetails details=customerServiceImpl.getByEmailId(customerEmailId);
+        return new ResponseEntity<>(details,HttpStatus.OK);
     }
 
     @PutMapping("/updateUser/")
-    public Customer updateUser(@RequestBody Customer customer, @RequestParam String customerEmailId){
-        return customerServiceImpl.updateUser(customer,customerEmailId);
+    public ResponseEntity<CustomerDetails> updateUser(@RequestBody AddCustomer customer, @RequestParam String customerEmailId) throws Exception{
+        CustomerDetails details=customerServiceImpl.updateUser(customer,customerEmailId);
+        return new ResponseEntity<>(details,HttpStatus.OK);
     }
     @DeleteMapping("/deleteUserByEmail/")
-    public String deleteUser(@RequestParam String customerEmailId){
+    public ResponseEntity<String> deleteUser(@RequestParam String customerEmailId) throws Exception{
         customerServiceImpl.deleteUser(customerEmailId);
-        return "User Deleted Successfully";
+        return new ResponseEntity<>("User Deleted Successfully",HttpStatus.OK);
     }
     @GetMapping("/getAllUser/")
-    public List<Customer> getUserByEmail(){
-        return customerServiceImpl.getAllUser();
+    public ResponseEntity<List<CustomerDetails>> fetchAll(){
+        List<CustomerDetails> customerDetailsList=customerServiceImpl.fetchAll();
+        return new ResponseEntity<>(customerDetailsList, HttpStatus.OK);
     }
 
 }

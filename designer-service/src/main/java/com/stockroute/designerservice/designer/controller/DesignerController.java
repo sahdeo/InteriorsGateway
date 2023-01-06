@@ -39,7 +39,7 @@ public class DesignerController {
         return new ResponseEntity<>(designerListByEmail, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deletebyEmail/{designerId}")
+    @DeleteMapping("/deletebyDesignerId/{designerId}")
     public ResponseEntity<Boolean> deleteDesigner(@PathVariable("designerId") String designerId) throws IdNotFound {
         Boolean isDeleted=designerService.deleteDesignerByDesignerId(designerId);
         return new ResponseEntity<>(isDeleted, HttpStatus.ACCEPTED);

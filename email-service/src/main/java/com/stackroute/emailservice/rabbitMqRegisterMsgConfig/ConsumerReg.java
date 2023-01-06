@@ -28,6 +28,7 @@ public class ConsumerReg {
         emailRequest.setName(userDto.getUserFirstName());
         Map<String, Object> model = new HashMap<>();
         model.put("Name", emailRequest.getName());
+        System.out.println(userDto);
         emailSenderService.sendEmail(emailRequest,model);
        // emailController.sendEmail(emailRequest);
     }
