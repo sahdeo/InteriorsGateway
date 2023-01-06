@@ -25,6 +25,7 @@ services:
     hostname: localhost
     ports:
       - 8076:8076
+
   api-gateway:
     build: api-gateway/
     container_name: api-gateway
@@ -98,6 +99,7 @@ services:
     ports:
       - 8083:8083
 
+
   payment-service:
     build: payment-service/
     container_name: payment-service
@@ -119,8 +121,26 @@ services:
   feedback-service:
     build: feedback-service/
     container_name: feedback-service
+
+  prometheus:
+    container_name: prom
+    image: prom/prometheus
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+
+  grafana:
+    container_name: graf
+    image: grafana/grafana
+
     restart: always
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8086:8086
+      - 3000:3000
+

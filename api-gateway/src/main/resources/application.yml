@@ -6,6 +6,23 @@ eureka:
     fetch-registry: true
 server:
   port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+    health:
+      show:
+        details: always
+
+    metrics:
+      enabled: true
+      export:
+        prometheus:
+          enabled: true
+    prometheus:
+      enabled: true
 spring:
   cloud:
     gateway:
