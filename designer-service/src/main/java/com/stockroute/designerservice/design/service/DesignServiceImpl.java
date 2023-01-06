@@ -67,9 +67,12 @@ public class DesignServiceImpl implements DesignService {
 
     @Override
     public Design updateDesign(Design design, String designId) {
-        if (designRepository.findById(designId).isEmpty()) {
+       Optional <Design> designfound=designRepository.findById(designId);
+        if ( designfound.isEmpty()){
             return null;
         }
+
+
         return designRepository.save(design);
     }
 
