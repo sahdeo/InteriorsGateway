@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/designerService")
 @CrossOrigin("*")
 public class DesignController {
     private DesignService designService;
