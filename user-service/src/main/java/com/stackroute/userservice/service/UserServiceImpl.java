@@ -38,7 +38,7 @@ public class UserServiceImpl implements IUserService {
         this.producer=producer;
     }
 
-    private Random random = new Random();
+    //private Random random = new Random();
 
 
     @Override
