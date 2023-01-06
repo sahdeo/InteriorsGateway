@@ -1,4 +1,4 @@
-package com.stackroute.userservice.rabbitmqConfig;
+package com.stockroute.designerservice.design.rabbitmqConfig;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MessageConfig {
-    public static final String QUEUE_REG="register-queue";
-    public static final String EXCHANGE="user-exchange";
-    public static final String ROUTING_KEY_REG="register-routing";
+    public static final String QUEUE_DES="design-queue";
+    public static final String EXCHANGE="design-exchange";
+    public static final String ROUTING_KEY_DES="register-routing";
     @Bean
     public Queue queue(){
-        return new Queue(QUEUE_REG,false);
+        return new Queue(QUEUE_DES,false);
     }
     @Bean
     public DirectExchange exchange(){
@@ -25,7 +25,7 @@ public class MessageConfig {
         return BindingBuilder
                 .bind(queue())
                 .to(exchange)
-                .with(ROUTING_KEY_REG);
+                .with(ROUTING_KEY_DES);
     }
 
     @Bean

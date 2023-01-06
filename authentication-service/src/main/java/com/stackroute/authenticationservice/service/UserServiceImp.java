@@ -29,10 +29,11 @@ public class UserServiceImp implements IUserService {
     private PasswordEncoder passwordEncoder;
     private OtpGenerator otpGenerator;
     @Autowired
-    public UserServiceImp(IUserDao userDao, Producer producer, OtpGenerator otpGenerator) {
+    public UserServiceImp(IUserDao userDao, Producer producer, OtpGenerator otpGenerator, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
         this.producer = producer;
         this.otpGenerator=otpGenerator;
+        this.passwordEncoder=passwordEncoder;
     }
 
     @Override

@@ -16,6 +16,7 @@ management:
       show:
         details: always
 
+<<<<<<< HEAD
 metrics:
   enabled: true
   export:
@@ -23,6 +24,15 @@ metrics:
       enabled: true
 prometheus:
   enabled: true
+=======
+    metrics:
+      enabled: true
+      export:
+        prometheus:
+          enabled: true
+    prometheus:
+      enabled: true
+>>>>>>> d833327ea5604ce3558b82095e5933ad7864f976
 spring:
   cloud:
     gateway:

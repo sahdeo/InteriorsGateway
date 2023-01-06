@@ -1,6 +1,5 @@
-package com.stackroute.userservice.rabbitmqConfig;
+package com.stockroute.designerservice.design.rabbitmqConfig;
 
-import domain.UserDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,8 +16,8 @@ public class Producer {
         this.messageConfig = messageConfig;
     }
 
-    public void sendMessageToRabbitmq(UserDto userDto){
-        rabbitTemplate.convertAndSend(messageConfig.EXCHANGE, messageConfig.ROUTING_KEY_REG, userDto);
+    public void sendMessageToRabbitmq(DesignDto designDto){
+        rabbitTemplate.convertAndSend(messageConfig.EXCHANGE, messageConfig.ROUTING_KEY_DES, designDto);
     }
 
 }

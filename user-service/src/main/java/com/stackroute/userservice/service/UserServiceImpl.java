@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -32,9 +33,10 @@ public class UserServiceImpl implements IUserService {
     private UserUtil userUtil;
 
     @Autowired
-    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil) {
+    public UserServiceImpl(IUserRepository userrepo, UserUtil userUtil, Producer producer) {
         this.userrepo = userrepo;
         this.userUtil = userUtil;
+        this.producer = producer;
     }
 
     private Random random = new Random();
@@ -60,8 +62,18 @@ public class UserServiceImpl implements IUserService {
         } else if (userEmail.isPresent()) {
             throw new EmailAlreadyExists("Email Id already Exists !!");
         }
+
         user = userrepo.save(user);
-//       producer.sendMessageToRabbitmq(user);
+        UserDto userDto = new UserDto();
+        userDto.setEmailId(user.getEmailId());
+        userDto.setUserFirstName(user.getUserFirstName());
+        userDto.setUserLastName(user.getUserLastName());
+        userDto.setUserPassword(passwordEncoder.encode(requestData.getPassword()));
+        userDto.setMobileNo(user.getMobileNo());
+        userDto.setRole(user.getRole());
+
+        producer.sendMessageToRabbitmq(userDto);
+
         UserDetails desired = userUtil.toUserDetails(user);
         return desired;
     }
