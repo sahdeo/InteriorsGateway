@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-<<<<<<< HEAD
 
-=======
->>>>>>> d833327ea5604ce3558b82095e5933ad7864f976
 @Component
 public class OrderUtil {
 
@@ -43,7 +40,7 @@ public class OrderUtil {
         order.setTotalAmount(orderDetails.getTotalAmount());
         return order;
     }
-    public Order fromRequestDataToOrder(CreateOrderDTO requestData){
+/*    public Order fromRequestDataToOrder(CreateOrderDTO requestData){
         Order order=new Order();
         order.setOrderId(requestData.getOrderId());
         order.setOrderDated(requestData.getOrderDated());
@@ -56,7 +53,7 @@ public class OrderUtil {
         order.setDiscount(requestData.getDiscount());
         order.setTotalAmount(requestData.getTotalAmount());
         return order;
-    }
+    }*/
     public List<OrderDetails> toOrderDetailList(Collection<Order> orders){
             List<OrderDetails> list=  orders.stream()
                     .map(this::toOrderDetails)
