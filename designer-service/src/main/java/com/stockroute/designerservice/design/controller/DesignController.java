@@ -1,5 +1,6 @@
 package com.stockroute.designerservice.design.controller;
 
+import com.stockroute.designerservice.design.dto.UpdateDesign;
 import com.stockroute.designerservice.design.exception.DesignAlreadyExistsException;
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/designerService")
 @CrossOrigin("*")
 public class DesignController {
     private DesignService designService;
@@ -90,7 +91,7 @@ public class DesignController {
         return responseEntity;
     }
     @PutMapping("/design/{designId}")
-    public ResponseEntity<?> updateDesign(@RequestBody Design design, @PathVariable("designId") String designId) {
+    public ResponseEntity<?> updateDesign(@RequestBody UpdateDesign design, @PathVariable("designId") String designId) {
         return new ResponseEntity<>(designService.updateDesign(design, designId), HttpStatus.OK);
     }
     @GetMapping("/findByDesignId/{designId}")

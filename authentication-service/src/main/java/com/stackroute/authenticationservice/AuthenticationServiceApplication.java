@@ -11,7 +11,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "Authentication API", version = "2.0", description = "Auth Information"))
 @SecurityScheme(name = "auth", scheme = "basic", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 public class AuthenticationServiceApplication {
 

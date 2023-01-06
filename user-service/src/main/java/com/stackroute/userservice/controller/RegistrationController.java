@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/user")
+@RequestMapping("/userService")
 @RestController
 public class RegistrationController {
     private IUserService service;

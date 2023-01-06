@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/demo/customer")
+@RequestMapping("/customerService")
 public class CustomerController {
 
     private CustomerService customerServiceImpl;

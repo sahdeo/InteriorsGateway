@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import rabbitmq.domain.UserDto;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/authenticationService")
 @SecurityRequirement(name = "auth")
 
 public class UserController {
