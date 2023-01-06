@@ -35,7 +35,7 @@ public class EmailServiceJavaApi {
             helper.setTo(request.getToEmail());
             helper.setText("OTP: "+ request.getEmailBody());
 
-            helper.setFrom("interiors.gateway@gmail.com");
+            helper.setFrom("interiorsgateway3@gmail.com");
             sender.send(message);
 
             response.setMessage("mail send to : " + request.getToEmail());
