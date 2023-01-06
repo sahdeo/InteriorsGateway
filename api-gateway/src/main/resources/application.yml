@@ -27,11 +27,13 @@ management:
 spring:
   application:
     name: api-gateway
+    main:
+      web-application-type: reactive
   cloud:
     gateway:
       routes:
         - id: user-service
-          uri: http://localhost:8085
+          uri: http://localhost:8085/
           predicates:
             - Path=/user-service/**
           filters:
@@ -43,37 +45,37 @@ spring:
           filters:
             - RewritePath=/authentication-service(?<segment>/?.*), $\{segment}
         - id: customer-service
-          uri: http://localhost:8082
+          uri: http://localhost:8082/
           predicates:
             - Path=/customer-service/**
           filters:
             - RewritePath=/customer-service(?<segment>/?.*), $\{segment}
         - id: designer-service
-          uri: http://localhost:8083
+          uri: http://localhost:8083/
           predicates:
             - Path=/designer-service/**
           filters:
             - RewritePath=/designer-service(?<segment>/?.*), $\{segment}
         - id: email-service
-          uri: http://localhost:8084
+          uri: http://localhost:8084/
           predicates:
             - Path=/email-service/**
           filters:
             - RewritePath=/email-service(?<segment>/?.*), $\{segment}
         - id: order-service
-          uri: http://localhost:8087
+          uri: http://localhost:8087/
           predicates:
             - Path=/order-service/**
           filters:
             - RewritePath=/order-service(?<segment>/?.*), $\{segment}
         - id: payment-service
-          uri: http://localhost:9097
+          uri: http://localhost:9097/
           predicates:
             - Path=/payment-service/**
           filters:
             - RewritePath=/payment-service(?<segment>/?.*), $\{segment}
         - id: feedback-service
-          uri: http://localhost:8086
+          uri: http://localhost:8086/
           predicates:
             - Path=/feedback-service/**
           filters:
