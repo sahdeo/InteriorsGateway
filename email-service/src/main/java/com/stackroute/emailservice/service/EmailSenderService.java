@@ -48,7 +48,7 @@ public class EmailSenderService {
             helper.setTo(request.getToEmail());
             helper.setText(html,true);
             helper.setSubject(request.getEmailSubject());
-            helper.setFrom("interiorsgateway3@gmail.com");
+            helper.setFrom("interiorsatgateway@gmail.com");
             sender.send(message);
 
             response.setMessage("mail send to : " + request.getToEmail());

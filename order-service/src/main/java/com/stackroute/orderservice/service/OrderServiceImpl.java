@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public OrderDetails createOrder(CreateOrderDTO requestData){
         Order order=new Order();
-        order.setOrderId(requestData.getOrderId());
+        /*order.setOrderId(requestData.getOrderId());
         order.setOrderDated(LocalDateTime.now());
         order.setCustomerEmailId(requestData.getCustomerEmailId());
         order.setCustomerName(requestData.getCustomerName());
@@ -38,8 +38,12 @@ public class OrderServiceImpl implements OrderService{
         order.setDesignPrice(requestData.getDesignPrice());
         order.setShippingDetails(requestData.getShippingDetails());
         order.setDiscount(requestData.getDiscount());
-        order.setTotalAmount(requestData.getTotalAmount());
-
+        order.setTotalAmount(requestData.getTotalAmount());*/
+        order.setOrderId(requestData.getOrderId());
+        order.setOrderDated(requestData.getOrderDated());
+        order.setDesignName(requestData.getDesignName());
+        order.setDesignId(requestData.getDesignId());
+        order.setDesignPrice(requestData.getDesignPrice());
         repository.save(order);
         OrderDetails orderDetails=orderUtil.toOrderDetails(order);
         return orderDetails;
@@ -70,11 +74,11 @@ public class OrderServiceImpl implements OrderService{
         return found;
     }
 
-    public List<String> ordersByEmail(String customerEmailId) throws OrderNotFoundException{
+   /* public List<String> ordersByEmail(String customerEmailId) throws OrderNotFoundException{
         List<Order> orders=repository.findAll();
         if(orders.isEmpty())
             throw new OrderNotFoundException("Orders not found for customer= "+customerEmailId);
         List<String> orderIds=orders.stream().filter(o-> o.getCustomerEmailId().equals(customerEmailId)).map(o->o.getOrderId()).collect(Collectors.toList());
         return orderIds;
-    }
+    }*/
 }

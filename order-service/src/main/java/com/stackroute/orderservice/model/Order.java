@@ -20,15 +20,34 @@ public class Order {
     @Id
     String orderId;
     LocalDateTime orderDated;
-    Double discount;
+    /*Double discount;
     Double totalAmount;
 
     String customerName;
     String customerEmailId;
-    ShippingDetails shippingDetails;
+    ShippingDetails shippingDetails;*/
 
 
     String designId;
     String designName;
-    Double designPrice;
+    Integer designPrice;
+
+
+    /*            “customerId”: “String”,
+            “customerName”: “String”,
+            “customerEmailId”: “String”,
+            “designId”: “String”,
+            “designName”: “String”,
+            “shippingDetails”: “entity”,
+            “orderId”: “String”,
+            “orderDated”: “String”,
+            “productId”: “String”,
+            “productName”: “String”,
+            “productQuantity”: “Double”,
+            “listPrice”: “Double”,
+            “discount”: “Double”,
+            “sellingPrice”: “Double”,
+            “deliveryFee”: “Double”,
+            “deliveryDiscount”: “Double”,
+            “totalAmount”: “Double”*/
 }

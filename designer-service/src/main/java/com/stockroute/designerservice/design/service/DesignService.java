@@ -25,5 +25,6 @@ public interface DesignService {
     Design findDesignByDesignId(String designId) throws DesignNotFoundException;
 
     List<Design> findDesignersByEmailId(String EmailId);
+    Design buyDesign(String designID) throws DesignNotFoundException;
 }
 

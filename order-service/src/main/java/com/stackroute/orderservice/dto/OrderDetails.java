@@ -13,13 +13,14 @@ public class OrderDetails {
 
     String orderId;
     LocalDateTime orderDated;
-    Double discount;
+    /*Double discount;
     Double totalAmount;
 
     String customerName;
     String customerEmailId;
-    ShippingDetails shippingDetails;
+    ShippingDetails shippingDetails;*/
+
     String designId;
     String designName;
-    Double designPrice;
+    Integer designPrice;
 }

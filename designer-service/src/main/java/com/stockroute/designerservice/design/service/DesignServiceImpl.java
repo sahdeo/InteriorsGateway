@@ -4,6 +4,8 @@ import com.stockroute.designerservice.design.exception.DesignAlreadyExistsExcept
 import com.stockroute.designerservice.design.exception.DesignNotFoundException;
 import com.stockroute.designerservice.design.model.Design;
 import com.stockroute.designerservice.design.model.DesignDetails;
+import com.stockroute.designerservice.design.rabbitmqConfig.DesignDto;
+import com.stockroute.designerservice.design.rabbitmqConfig.Producer;
 import com.stockroute.designerservice.design.repository.DesignRepository;
 import com.stockroute.designerservice.designer.model.Designer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,12 @@ import java.util.Optional;
 @Service
 public class DesignServiceImpl implements DesignService {
     private DesignRepository designRepository;
-
+    private Producer producer;
 
     @Autowired
-    public DesignServiceImpl(DesignRepository designRepository) {
+    public DesignServiceImpl(DesignRepository designRepository,Producer producer) {
         this.designRepository = designRepository;
+        this.producer=producer;
     }
 
     @Override
@@ -31,6 +34,24 @@ public class DesignServiceImpl implements DesignService {
             throw new DesignAlreadyExistsException();
         }
         return designRepository.save(design);
+    }
+
+
+    @Override
+    public Design buyDesign(String designID) throws DesignNotFoundException {
+        /*Design design1 = new Design();
+        design1.setDesignDetails(design.getDesignDetails());
+        design1.setDesignName(design.getDesignName());
+        design1.setDesignId(design.getDesignerEmailId());*/
+        Design design = findDesignByDesignId(designID);
+        designRepository.findByDesignId(designID);
+        DesignDto designDto = new DesignDto();
+        designDto.setDesignName(design.getDesignName());
+        designDto.setDesignId(design.getDesignId());
+        designDto.setDesignDetails(design.getDesignDetails());
+        System.out.println(designDto);
+        producer.sendMessageToRabbitmq(designDto);
+        return design;
     }
 
     @Override

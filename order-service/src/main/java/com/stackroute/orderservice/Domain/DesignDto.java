@@ -1,17 +1,16 @@
-/*
-package com.stackroute.orderservice.model;
+package com.stackroute.orderservice.Domain;
 
+import com.stockroute.designerservice.design.model.DesignDetails;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Design {
+public class DesignDto {
     private String designId;
     private String designName;
     private String ratings;
@@ -22,4 +21,3 @@ public class Design {
     private String designerEmailId;
     private DesignDetails designDetails;
 }
-*/

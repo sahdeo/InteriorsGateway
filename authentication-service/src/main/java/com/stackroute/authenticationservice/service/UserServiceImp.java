@@ -64,8 +64,10 @@ public class UserServiceImp implements IUserService {
     public String updatePassword(OtpVerify otpVerify) throws UserNotFoundException, OtpNotValidException {
 
         if(validateOTP(otpVerify.getEmailId(),otpVerify.getOtp())){
+
            User user = findByUsername(otpVerify.getEmailId());
            user.setUserPassword(otpVerify.getNewPassword());
+//        System.out.println(user.getUserPassword());
            userDao.save(user);
            return "Success";
        }

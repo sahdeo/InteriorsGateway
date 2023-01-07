@@ -27,6 +27,7 @@ public class Consumer {
         user.setUserLastName(userDto.getUserLastName());
         user.setMobileNo(userDto.getMobileNo());
         user.setRole(userDto.getRole());
+        //System.out.println(userDto);
         userService.registerNewUser(user);
 
     }

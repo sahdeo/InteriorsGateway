@@ -15,7 +15,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/orderService")
+@RequestMapping("orders")
 public class OrderController {
 
     private OrderService orderService;
@@ -47,9 +47,9 @@ public class OrderController {
         return new ResponseEntity<>("Order Canceled Successfully", HttpStatus.OK);
     }
 
-    @GetMapping(value = "OrderIdList/findBy/customerEmailId")
+  /*  @GetMapping(value = "OrderIdList/findBy/customerEmailId")
     public ResponseEntity<List<String>> ordersByCustomerEmail(@RequestParam @Valid String customerEmailId) throws OrderNotFoundException{
         List<String> orderIds=orderService.ordersByEmail(customerEmailId);
         return new ResponseEntity<>(orderIds,HttpStatus.FOUND);
-    }
+    }*/
 }

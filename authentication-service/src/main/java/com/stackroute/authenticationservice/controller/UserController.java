@@ -2,7 +2,10 @@ package com.stackroute.authenticationservice.controller;
 
 import com.stackroute.authenticationservice.dto.JwtRequest;
 import com.stackroute.authenticationservice.dto.JwtResponse;
+import com.stackroute.authenticationservice.dto.OtpVerify;
 import com.stackroute.authenticationservice.entity.User;
+import com.stackroute.authenticationservice.exception.OtpNotValidException;
+import com.stackroute.authenticationservice.exception.UserNotFoundException;
 import com.stackroute.authenticationservice.rabbitmqConfig.Producer;
 import com.stackroute.authenticationservice.service.JwtServiceImp;
 import com.stackroute.authenticationservice.service.UserServiceImp;
@@ -12,11 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import rabbitmq.domain.EmailDto;
 import rabbitmq.domain.UserDto;
 
 @RestController
 @RequestMapping("/authenticationService")
-@SecurityRequirement(name = "auth")
+//@SecurityRequirement(name = "auth")
 
 public class UserController {
     @Autowired
@@ -38,6 +42,21 @@ public class UserController {
         JwtResponse jwtResponse = jwtServiceImp.createJwtToken(jwtRequest);
         return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
+    @PostMapping("/forgetPassword")
+    public ResponseEntity<EmailDto> forgotPassword(@RequestParam String emailId) throws UserNotFoundException {
+        EmailDto emailDto = userServiceImp.forgotPassword(emailId.trim().toString());
+        return new ResponseEntity<>(emailDto, HttpStatus.OK);
+    }
+
+
+    @PutMapping("/updatePassword")
+    public ResponseEntity<String> resetPassword(@RequestBody OtpVerify otpVerify) throws UserNotFoundException, OtpNotValidException {
+        String response = userServiceImp.updatePassword(otpVerify);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+
+
 
     @GetMapping("/forAdmin")
     @PreAuthorize("hasRole('ADMIN')")

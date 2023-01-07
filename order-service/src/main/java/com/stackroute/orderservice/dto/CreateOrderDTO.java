@@ -32,5 +32,5 @@ public class CreateOrderDTO {
     @NotBlank(message = "Design id can't be blank or empty")
     String designId;
     String designName;
-    Double designPrice;
+    Integer designPrice;
 }

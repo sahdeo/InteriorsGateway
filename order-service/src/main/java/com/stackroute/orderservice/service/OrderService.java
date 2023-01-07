@@ -15,6 +15,6 @@ public interface OrderService {
     OrderDetails findOrderById(String orderId) throws OrderNotFoundException;
 
     OrderDetails cancelOrder(String orderId) throws OrderNotFoundException;
-    List<String> ordersByEmail(String customerEmailId) throws OrderNotFoundException;
+   /* List<String> ordersByEmail(String customerEmailId) throws OrderNotFoundException;*/
 
 }

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class MessageConfig {
     public static final String QUEUE_DES="design-queue";
     public static final String EXCHANGE="design-exchange";
-    public static final String ROUTING_KEY_DES="register-routing";
+    public static final String ROUTING_KEY_DES="design-routing";
     @Bean
     public Queue queue(){
         return new Queue(QUEUE_DES,false);

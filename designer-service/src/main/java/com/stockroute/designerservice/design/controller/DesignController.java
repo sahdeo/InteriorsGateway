@@ -52,6 +52,12 @@ public class DesignController {
         return responseEntity;
 
     }
+
+    @PostMapping("/design/buyDesign/{designId}")
+    public ResponseEntity<?> buyDesign(@PathVariable String designId) throws DesignNotFoundException {
+        return new ResponseEntity<>(designService.buyDesign(designId), HttpStatus.ACCEPTED);
+    }
+
     @GetMapping("/design/details")
     public ResponseEntity<?> getDesignDetails() {
         try {

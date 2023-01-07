@@ -42,7 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.cors();
         httpSecurity.csrf().disable()
 
-                .authorizeRequests().antMatchers("/auth/**","/swagger-ui/**","/updatePassword","/forgetPassword","/authenticationService/**")
+                .authorizeRequests().antMatchers("/auth/**","/swagger-ui/**","/passwordService/updatePassword","/passwordService/forgetPassword","/authenticationService/**","/passwordService/**")
                 .permitAll()
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()
