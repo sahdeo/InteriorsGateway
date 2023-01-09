@@ -16,8 +16,6 @@ public class DesignDto {
     private String ratings;
     private String color;
     private double size;
-    @Schema(hidden=true)
-    private byte[] image;
     private String designerEmailId;
     private DesignDetails designDetails;
 }
