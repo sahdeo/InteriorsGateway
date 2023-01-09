@@ -20,6 +20,7 @@ public class Customer {
     private Gender gender;
     private String city;
     private String state;
+
     private String pinCode;
     private String country;
 }

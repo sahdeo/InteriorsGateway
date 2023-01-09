@@ -9,6 +9,7 @@ import lombok.ToString;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -33,8 +34,8 @@ public class AddCustomer {
     private String city;
     @NotBlank(message = "State can't be blank or empty")
     private String state;
-    @NotBlank(message = "pinCode can't be blank or empty")
-    //@Max(6)
+    @Size(min = 6, max = 6, message
+            = "PinCode must be of 6 digits")
     private String pinCode;
     @NotBlank(message = "pinCode can't be blank or empty")
     private String country;
