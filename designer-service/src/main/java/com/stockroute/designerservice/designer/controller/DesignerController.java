@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/designerService")
+@RequestMapping("/designService")
 public class DesignerController {
 
 
@@ -33,11 +33,11 @@ public class DesignerController {
         return new ResponseEntity<>(designerList, HttpStatus.OK);
     }
 
-    @GetMapping("/findByEmailId/{EmailId}")
-    public ResponseEntity<List<Designer>> getdesignerByEmailId(@PathVariable String EmailId) {
-        List<Designer> designerListByEmail=designerService.findDesignersByEmailId(EmailId);
-        return new ResponseEntity<>(designerListByEmail, HttpStatus.OK);
-    }
+//    @GetMapping("/findByEmailId/{EmailId}")
+//    public ResponseEntity<List<Designer>> getdesignerByEmailId(@PathVariable String EmailId) {
+//        List<Designer> designerListByEmail=designerService.findDesignersByEmailId(EmailId);
+//        return new ResponseEntity<>(designerListByEmail, HttpStatus.OK);
+//    }
 
     @DeleteMapping("/deletebyDesignerId/{designerId}")
     public ResponseEntity<Boolean> deleteDesigner(@PathVariable("designerId") String designerId) throws IdNotFound {

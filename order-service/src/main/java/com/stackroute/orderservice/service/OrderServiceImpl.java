@@ -37,6 +37,7 @@ public class OrderServiceImpl implements OrderService{
         order.setShippingDetails(requestData.getShippingDetails());
         order.setDiscount(requestData.getDiscount());
         order.setTotalAmount(requestData.getTotalAmount());*/
+
         order.setOrderId(requestData.getOrderId());
         order.setOrderDated(requestData.getOrderDated());
         order.setDesignName(requestData.getDesignName());
