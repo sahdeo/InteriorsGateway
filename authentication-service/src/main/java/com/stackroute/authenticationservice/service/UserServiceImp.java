@@ -65,8 +65,8 @@ public class UserServiceImp implements IUserService {
 
         if(validateOTP(otpVerify.getEmailId(),otpVerify.getOtp())){
 
-           User user = findByUsername(otpVerify.getEmailId());
-           user.setUserPassword(otpVerify.getNewPassword());
+           User user = userDao.findByEmailId(otpVerify.getEmailId());
+           user.setUserPassword(getEncodedPassword(otpVerify.getNewPassword()));
 //        System.out.println(user.getUserPassword());
            userDao.save(user);
            return "Success";
@@ -115,8 +115,8 @@ public class UserServiceImp implements IUserService {
         return false;
     }
 
-    public PasswordEncoder getEncodedPassword(String password) {
-        return new BCryptPasswordEncoder();
+    public String getEncodedPassword(String password) {
+        return passwordEncoder.encode(password);
     }
 
 }

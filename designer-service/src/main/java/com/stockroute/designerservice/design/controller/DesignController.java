@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/designService")
+@RequestMapping("/designerService")
 @CrossOrigin("*")
 public class DesignController {
     private DesignService designService;
@@ -48,7 +48,6 @@ public class DesignController {
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>("Error try save after sometime", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         return responseEntity;
 
     }

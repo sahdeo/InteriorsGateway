@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IUserDao extends JpaRepository<User, String> {
     //void update(User user);
+
+    User findByEmailId(String emailId);
 }

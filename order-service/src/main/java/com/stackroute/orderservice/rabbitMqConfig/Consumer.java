@@ -1,8 +1,8 @@
 package com.stackroute.orderservice.rabbitMqConfig;
 
+import com.stackroute.orderservice.Domain.DesignDto;
 import com.stackroute.orderservice.dto.CreateOrderDTO;
 import com.stackroute.orderservice.service.OrderServiceImpl;
-import com.stockroute.designerservice.Domain.DesignDto;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class Consumer {
         CreateOrderDTO createOrderDTO = new CreateOrderDTO();
         createOrderDTO.setDesignId(request.getDesignId());
         createOrderDTO.setDesignName(request.getDesignName());
-        createOrderDTO.setDesignPrice(request.getDesignDetails().getDesignPrice());
+        createOrderDTO.setDesignPrice(request.getDesignPrice());
         System.out.println(request);
         orderService.createOrder(createOrderDTO);
     }

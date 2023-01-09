@@ -20,14 +20,6 @@ public class Order {
     @Id
     String orderId;
     LocalDateTime orderDated;
-    /*Double discount;
-    Double totalAmount;
-
-    String customerName;
-    String customerEmailId;
-    ShippingDetails shippingDetails;*/
-
-
     String designId;
     String designName;
     Integer designPrice;

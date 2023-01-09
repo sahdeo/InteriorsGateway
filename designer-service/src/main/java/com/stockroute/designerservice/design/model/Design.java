@@ -18,7 +18,11 @@ public class Design {
     private String color;
     private double size;
     @Schema(hidden=true)
-   private byte[] image;
+    private byte[] image;
     private String designerEmailId;
-    private DesignDetails designDetails;
+   // private DesignDetails designDetails;
+    private  String customerEmailId;
+    private  String designModel;
+    private int designCode;
+    private int designPrice;
 }

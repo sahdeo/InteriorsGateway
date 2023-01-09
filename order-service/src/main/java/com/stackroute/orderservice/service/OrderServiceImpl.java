@@ -7,13 +7,11 @@ import com.stackroute.orderservice.model.Order;
 import com.stackroute.orderservice.repository.OrderRepository;
 import com.stackroute.orderservice.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -44,6 +42,7 @@ public class OrderServiceImpl implements OrderService{
         order.setDesignName(requestData.getDesignName());
         order.setDesignId(requestData.getDesignId());
         order.setDesignPrice(requestData.getDesignPrice());
+        //order.setOrderDated(LocalDateTime.now());
         repository.save(order);
         OrderDetails orderDetails=orderUtil.toOrderDetails(order);
         return orderDetails;

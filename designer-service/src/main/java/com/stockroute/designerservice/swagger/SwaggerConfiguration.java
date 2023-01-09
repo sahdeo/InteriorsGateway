@@ -22,6 +22,6 @@ public class SwaggerConfiguration {
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(new ApiInfo("designerService", "InteriorsGateway designerService", "1.0", "http://localhost:8083/designerService"
-                        , new Contact("sahdeo", "url", ""), "opensource", "", Collections.emptyList()));
+                        , new Contact("Chinna", "url", ""), "opensource", "", Collections.emptyList()));
     }
 }

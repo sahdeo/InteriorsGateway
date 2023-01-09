@@ -39,18 +39,17 @@ public class DesignServiceImpl implements DesignService {
 
     @Override
     public Design buyDesign(String designID) throws DesignNotFoundException {
-        /*Design design1 = new Design();
-        design1.setDesignDetails(design.getDesignDetails());
-        design1.setDesignName(design.getDesignName());
-        design1.setDesignId(design.getDesignerEmailId());*/
         Design design = findDesignByDesignId(designID);
         designRepository.findByDesignId(designID);
         DesignDto designDto = new DesignDto();
         designDto.setDesignName(design.getDesignName());
         designDto.setDesignId(design.getDesignId());
-        designDto.setDesignDetails(design.getDesignDetails());
+        designDto.setDesignPrice(design.getDesignPrice());
+        designDto.setCustomerEmailId(design.getCustomerEmailId());
         System.out.println(designDto);
+
         producer.sendMessageToRabbitmq(designDto);
+
         return design;
     }
 
@@ -113,20 +112,20 @@ public class DesignServiceImpl implements DesignService {
             design.setDesignerEmailId(designFound.getDesignerEmailId());
         else design.setDesignerEmailId(updateDesign.getDesignerEmailId());
 
-        DesignDetails designDetails=new DesignDetails();
+       // DesignDetails designDetails=new DesignDetails();
         DesignDetails updateDesignDetails=updateDesign.getDesignDetails();
 
         if(updateDesignDetails.getDesignModel().equals("string"))
-            designDetails.setDesignModel(designFound.getDesignDetails().getDesignModel());
-        else designDetails.setDesignModel(updateDesignDetails.getDesignModel());
+            design.setDesignModel(designFound.getDesignModel());
+        else design.setDesignModel(updateDesignDetails.getDesignModel());
         if(updateDesignDetails.getDesignCode()==0)
-            designDetails.setDesignCode(designFound.getDesignDetails().getDesignCode());
-        else designDetails.setDesignCode(updateDesignDetails.getDesignCode());
+            design.setDesignCode(designFound.getDesignCode());
+        else design.setDesignCode(updateDesignDetails.getDesignCode());
         if(updateDesignDetails.getDesignPrice()==0)
-            designDetails.setDesignPrice(designFound.getDesignDetails().getDesignPrice());
-        else designDetails.setDesignPrice(updateDesignDetails.getDesignPrice());
+            design.setDesignPrice(designFound.getDesignPrice());
+        else design.setDesignPrice(updateDesignDetails.getDesignPrice());
 
-        design.setDesignDetails(designDetails);
+       // design.setDesignDetails(designDetails);
 
 
         return designRepository.save(design);
