@@ -19,7 +19,7 @@ public class Consumer {
 //    @Autowired
 //    private EmailServiceJavaApi emailServiceJavaApi;
     @RabbitListener(queues="design-queue")
-    public void getDataFromRabbitmq(DesignDto request) throws Exception{
+    public void getDataFromRabbitmq (DesignDto request) throws Exception{
         CreateOrderDTO createOrderDTO = new CreateOrderDTO();
         createOrderDTO.setDesignId(request.getDesignId());
         createOrderDTO.setDesignName(request.getDesignName());

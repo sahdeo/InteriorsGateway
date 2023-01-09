@@ -34,7 +34,7 @@ public class AddCustomer {
     @NotBlank(message = "State can't be blank or empty")
     private String state;
     @NotBlank(message = "pinCode can't be blank or empty")
-    @Max(6)
+    //@Max(6)
     private String pinCode;
     @NotBlank(message = "pinCode can't be blank or empty")
     private String country;
