@@ -19,71 +19,71 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['172.31.32.100:9090']
 
   - job_name: 'api-gateway'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8080' ]
+      - targets: [ '172.31.32.100:8080' ]
 
   - job_name: 'authenticationService'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8081' ]
+      - targets: [ '172.31.32.100:8081' ]
 
   - job_name: 'customer-service'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8082' ]
+      - targets: [ '172.31.32.100:8082' ]
 
   - job_name: 'designeService'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8083' ]
+      - targets: [ '172.31.32.100:8083' ]
 
   - job_name: 'emailService'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8084' ]
+      - targets: [ '172.31.32.100:8084' ]
 
   - job_name: 'userService'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8085' ]
+      - targets: [ '172.31.32.100:8085' ]
 
   - job_name: 'feedbackService'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8086' ]
+      - targets: [ '172.31.32.100:8086' ]
 
   - job_name: 'orderService'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8087' ]
+      - targets: [ '172.31.32.100:8087' ]
 
   - job_name: 'payment-service'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:9097' ]
+      - targets: [ '172.31.32.100:9097' ]
 
   - job_name: 'config-server'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8888' ]
+      - targets: [ '172.31.32.100:8888' ]
 
   - job_name: 'eurekaServer'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: [ 'localhost:8761' ]
+      - targets: [ '172.31.32.100:8761' ]
 
