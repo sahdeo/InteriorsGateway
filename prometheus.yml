@@ -27,7 +27,7 @@ scrape_configs:
     static_configs:
       - targets: [ '172.31.32.100:8080' ]
 
-  - job_name: 'authenticationService'
+  - job_name: 'authentication-service'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
@@ -39,31 +39,31 @@ scrape_configs:
     static_configs:
       - targets: [ '172.31.32.100:8082' ]
 
-  - job_name: 'designeService'
+  - job_name: 'designer-service'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
       - targets: [ '172.31.32.100:8083' ]
 
-  - job_name: 'emailService'
+  - job_name: 'email-service'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
       - targets: [ '172.31.32.100:8084' ]
 
-  - job_name: 'userService'
+  - job_name: 'user-service'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
       - targets: [ '172.31.32.100:8085' ]
 
-  - job_name: 'feedbackService'
+  - job_name: 'feedback-service'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
       - targets: [ '172.31.32.100:8086' ]
 
-  - job_name: 'orderService'
+  - job_name: 'order-service'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
@@ -75,13 +75,8 @@ scrape_configs:
     static_configs:
       - targets: [ '172.31.32.100:9097' ]
 
-  - job_name: 'config-server'
-    metrics_path: '/actuator/prometheus'
-    scrape_interval: 5s
-    static_configs:
-      - targets: [ '172.31.32.100:8888' ]
 
-  - job_name: 'eurekaServer'
+  - job_name: 'eureka-server'
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
